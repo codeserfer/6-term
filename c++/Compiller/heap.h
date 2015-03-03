@@ -1,25 +1,149 @@
 #pragma once
 
-#define SEGMENTSIZE 65539 //Р Р°Р·РјРµСЂ РІ Р±Р°Р№С‚Р°С… РѕРґРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹ РїР°РјСЏС‚Рё
-#define SEGMENTCOUNT 1024 //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє РІ РѕРґРЅРѕР№ СЃС‚СЂР°РЅРёС†Рµ - Р±СЂРµРґ, РєРѕС‚РѕСЂС‹Р№ РЅР°РґРѕ СѓР±СЂР°С‚СЊ!
+#define SEGMENTSIZE 65539
 
 class Heap
 {
 public:
-	Heap (int);
-	~Heap ();
-	void* GetMem (int);
-	void FreeMem (void*);
+	Heap(int);
+	~Heap(void);
+
+	void* GetMemory(int);
+	void FreeMemory(void*);
 
 private:
-	struct SegmentDef {};
-	struct Segment {};
-	int SegmentSize;
-	Segment* Current; //РЈРєР°Р·С‹РІР°РµС‚ РЅР° РїРѕСЃР»РµРґРЅСЋСЋ РґРѕР±Р°РІР»РµРЅРЅСѓСЋ СЃС‚СЂР°РЅРёС†Сѓ (С‚РµРєСѓС‰СѓСЋ)
-	int MakeSegment ();
-	void DeleteSegments ();
+
+	struct Block
+	{
+		bool	used;
+		int		size;
+		void*	offset;
+
+		Block* next;
+		Block* prev;
+
+	};
+
+	// Страница памяти размером SEGMENTSIZE
+	struct Segment
+	{
+
+		void* data;						// Указатель на участок выделенной памяти длинной SEGMENTSIZE
+		Segment* prev;					// Указатель на предыдущую страницу
+
+		Block* firstBlock;
+		Block* lastBlock;
+
+		Segment(Segment* prev)
+		{
+			this->prev = prev;
+
+			data = malloc(segmentSize);
+
+			firstBlock = lastBlock = new Block;
+
+			firstBlock->used = false;
+			firstBlock->size = segmentSize;
+			firstBlock->offset = data;
+
+			firstBlock->prev = firstBlock->next = nullptr;
+		}
 
 
+		void* PushBlock(int blockSize)
+		{
+			Block* newBlock = new Block;
+
+			newBlock->used = true;
+			newBlock->size = blockSize;
+
+			Block* i = firstBlock;
+			while (i->next)
+			{
+				if (!i->used && i->size <= blockSize)
+				{
+
+				}
+			}
 
 
+			return nullptr;
+		}
+
+		void RemoveBlock()
+		{
+
+		}
+
+		void ClearSegment()
+		{
+
+		}
+
+
+	};
+
+	static int segmentSize; // Размер выделяемой страницы
+	Segment* current;
+
+	int MakeSegment();
+	void DeleteSegments();
 };
+
+//struct Descriptor {};			// Список ячеек
+		//Descriptor* firstDescriptor;	// Указатель на начало списка участков в сегменте //@
+		//Descriptor* lastDescriptor;		// Указатель на конец списка участков в сегменте //@
+		//// Список ячеек
+		//struct Descriptor
+		//{
+		//	Block* block;
+		//	Descriptor* next;
+		//public:
+		//	Descriptor* Push(Descriptor* firstDescriptor, Descriptor* lastDescriptor, Block* newDescriptor)
+		//	{
+		//		if (firstDescriptor == NULL)
+		//		{
+		//			lastDescriptor = firstDescriptor = new Descriptor;
+		//			firstDescriptor->block = newDescriptor;
+		//			firstDescriptor->next = NULL;
+		//			return firstDescriptor;
+		//		}
+		//		Descriptor* temp = new Descriptor;
+		//		temp->next = NULL;
+		//		temp->block = newDescriptor;
+		//		lastDescriptor->next = temp;
+		//		lastDescriptor = temp;
+		//		return temp;
+		//	}
+		//	//Очистка ячейки и слияние ее с соседними, если они тоже свободные
+		//	void Clear(Descriptor* a, Descriptor* firstDescriptor)
+		//	{
+		//		//Поиск предыдущей ячейки
+		//		Descriptor* prv = firstDescriptor;
+		//	
+		//		while (prv->next!=a)
+		//		{
+		//			prv = prv->next;
+		//		}
+		//		
+		//		//Если предыдущая ячейка свободна
+		//		if (prv->block->used == false)
+		//		{
+		//		
+		//			prv->block->size += a->block->size; //Увеличиваем размер предыдущей ячейки
+		//			//Удаляем текущую ячейку
+		//			prv->next = a->next;
+		//			delete a;
+		//			a = prv;
+		//		}
+		//		//Если следующая ячейка свободна
+		//		if (a->next->block->size == false)
+		//		{
+		//			a->block->size += a->next->block->size; //Увеличиваем размер текущей ячейки
+		//			//Удаляем следующую ячейку
+		//			a->next = a->next->next;
+		//			delete a->next;
+		//		}
+		//		a->block->used = false;
+		//	}
+		//};

@@ -1,15 +1,17 @@
 #pragma once
+#include <iostream>
 
 #define SEGMENTSIZE 65539
 
 class Heap
 {
 public:
-	Heap(int);
+	Heap(int segmentSize = SEGMENTSIZE);
 	~Heap(void);
 
 	void* GetMemory(int);
 	void FreeMemory(void*);
+	static const int segmentSize = SEGMENTSIZE;
 
 private:
 
@@ -24,7 +26,7 @@ private:
 
 	};
 
-	// —траница пам€ти размером SEGMENTSIZE
+	 //—траница пам€ти размером SEGMENTSIZE
 	struct Segment
 	{
 
@@ -60,19 +62,52 @@ private:
 			Block* i = firstBlock;
 			while (i->next)
 			{
-				if (!i->used && i->size <= blockSize)
+				if (!i->used)
 				{
+					if (i->size > blockSize)
+					{
+						newBlock->offset = i->offset;
+						i->offset = (char*)newBlock->offset + newBlock->size;
 
+						if (newBlock->prev = i->prev)
+						{
+							newBlock->prev->next = newBlock;
+						}
+						i->prev = newBlock;
+
+						newBlock->next = i;
+					}
+					else if (i->size == blockSize)
+					{
+						newBlock->offset = i->offset;
+					}
 				}
 			}
 
-
-			return nullptr;
+			return newBlock->offset;
 		}
 
-		void RemoveBlock()
+		void RemoveBlock(void* oldBlock)
 		{
+			Segment* i = this;
+			while (i)
+			{
+				if (i->firstBlock->offset <= oldBlock && (char*)i->firstBlock->offset + SEGMENTSIZE < oldBlock) //@
+				{
+					Block* j = i->firstBlock;
+					while (j)
+					{
+						if (j->offset == oldBlock)
+						{
+							RemoveBlock(j);
+							return;
+						}
+						j = j->next;
+					}
+				}
 
+				i = i->prev;
+			}
 		}
 
 		void ClearSegment()
@@ -80,70 +115,41 @@ private:
 
 		}
 
+private:
+
+		void RemoveBlock(Block* oldBlock)
+		{
+			oldBlock->used = false;
+
+			if (oldBlock->prev && !oldBlock->prev->used)
+			{
+				oldBlock->size += oldBlock->prev->size;
+				oldBlock->offset = (char*)oldBlock->offset - oldBlock->prev->size;
+
+				if (oldBlock->prev->prev)
+				{
+					oldBlock->prev->prev->next=oldBlock;
+				}
+				oldBlock->prev = oldBlock->prev->prev;
+			}
+
+			if (oldBlock->next && !oldBlock->next->used)
+			{
+				oldBlock->size += oldBlock->next->size;
+
+				if (oldBlock->next->next)
+				{
+					oldBlock->next->next->prev=oldBlock;
+				}
+				oldBlock->next = oldBlock->next->next;
+			}
+		}
 
 	};
 
-	static int segmentSize; // –азмер выдел€емой страницы
+	
 	Segment* current;
 
 	int MakeSegment();
 	void DeleteSegments();
 };
-
-//struct Descriptor {};			// —писок €чеек
-		//Descriptor* firstDescriptor;	// ”казатель на начало списка участков в сегменте //@
-		//Descriptor* lastDescriptor;		// ”казатель на конец списка участков в сегменте //@
-		//// —писок €чеек
-		//struct Descriptor
-		//{
-		//	Block* block;
-		//	Descriptor* next;
-		//public:
-		//	Descriptor* Push(Descriptor* firstDescriptor, Descriptor* lastDescriptor, Block* newDescriptor)
-		//	{
-		//		if (firstDescriptor == NULL)
-		//		{
-		//			lastDescriptor = firstDescriptor = new Descriptor;
-		//			firstDescriptor->block = newDescriptor;
-		//			firstDescriptor->next = NULL;
-		//			return firstDescriptor;
-		//		}
-		//		Descriptor* temp = new Descriptor;
-		//		temp->next = NULL;
-		//		temp->block = newDescriptor;
-		//		lastDescriptor->next = temp;
-		//		lastDescriptor = temp;
-		//		return temp;
-		//	}
-		//	//ќчистка €чейки и сли€ние ее с соседними, если они тоже свободные
-		//	void Clear(Descriptor* a, Descriptor* firstDescriptor)
-		//	{
-		//		//ѕоиск предыдущей €чейки
-		//		Descriptor* prv = firstDescriptor;
-		//	
-		//		while (prv->next!=a)
-		//		{
-		//			prv = prv->next;
-		//		}
-		//		
-		//		//≈сли предыдуща€ €чейка свободна
-		//		if (prv->block->used == false)
-		//		{
-		//		
-		//			prv->block->size += a->block->size; //”величиваем размер предыдущей €чейки
-		//			//”дал€ем текущую €чейку
-		//			prv->next = a->next;
-		//			delete a;
-		//			a = prv;
-		//		}
-		//		//≈сли следующа€ €чейка свободна
-		//		if (a->next->block->size == false)
-		//		{
-		//			a->block->size += a->next->block->size; //”величиваем размер текущей €чейки
-		//			//”дал€ем следующую €чейку
-		//			a->next = a->next->next;
-		//			delete a->next;
-		//		}
-		//		a->block->used = false;
-		//	}
-		//};

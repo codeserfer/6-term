@@ -5,13 +5,20 @@
 
 using namespace std;
 
+//Разобраться с тупым segmentSize
 Heap::Heap(int segmentSize)
 {
 	//this->segmentSize = segmentSize;
-	this->current = 0;
+	this->current = MakeSegment();
 }
 Heap::~Heap(void)
 {
+	Segment* i = current;
+	while (i)
+	{
+		i->ClearSegment();
+		i = i->prev;
+	}
 }
 
 void* Heap::GetMemory(int size)
@@ -21,34 +28,46 @@ void* Heap::GetMemory(int size)
 		throw new bad_alloc();
 	}
 
-	// Поиск в текущей и во всех страницах участка требуемого размера
-	// Если такого не нашлось, то выделяем новую страницу
-			return nullptr;
+	// Поиск во всех страницах участка требуемого размера
+	Segment* i = current;
+	while (i)
+	{
+		void* newBlock = i->PushBlock(size);
+		if (newBlock != nullptr) return newBlock;
+		i = i->prev;
+	}
 
+	// Если такого не нашлось, то выделяем новую страницу
+	i = MakeSegment();
+	if (i->data!=nullptr)
+	{
+		i->PushBlock(size);
+		return i;
+	}
+	
+	return nullptr;
 }
 
-void Heap::FreeMemory(void* segment)
-{
 
+void Heap::FreeMemory(Segment* segment)
+{
+	Segment* i = current;
+	Segment* prev = nullptr;
+	while (i != segment)
+	{
+		prev = i;
+		i = i->prev;
+	}
+	i->ClearSegment();
+	if (prev) prev->prev = i->prev;
 }
 
 //Выделение памяти под новую страницу
-int Heap::MakeSegment()
+Heap::Segment* Heap::MakeSegment()
 {
-	//Segment* temp = new Segment;
-
-	//temp->prev = current;
-
-	////
-	//temp->data = malloc(sizeof(segmentSize));
-	//temp->descriptor[0].size = segmentSize;
-	//temp->descriptor[0].offset = 0x0;
-	//temp->descriptor[0].used = false;
-	//temp->DescriptorCount = 0;
-
-	//current = temp;
-
-			return 0;
+	Segment* temp = new Segment (current);
+	current = temp;
+	return current;
 
 }
 

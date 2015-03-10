@@ -1,22 +1,24 @@
 #include "stdafx.h"
+#include "Segment.h"
 #include "Heap.h"
 #include <iostream>
 #include <exception>
 
 using namespace std;
 
-//Разобраться с тупым segmentSize
 Heap::Heap(int segmentSize)
 {
-	//this->segmentSize = segmentSize;
+	this->segmentSize = segmentSize;
 	this->current = MakeSegment();
 }
+
 Heap::~Heap(void)
 {
 	Segment* i = current;
 	while (i)
 	{
-		i->ClearSegment();
+		//i->ClearSegment();//деструктор delete
+		delete i;
 		i = i->prev;
 	}
 }
@@ -28,7 +30,6 @@ void* Heap::GetMemory(int size)
 		throw new bad_alloc();
 	}
 
-	// Поиск во всех страницах участка требуемого размера
 	Segment* i = current;
 	while (i)
 	{
@@ -37,17 +38,15 @@ void* Heap::GetMemory(int size)
 		i = i->prev;
 	}
 
-	// Если такого не нашлось, то выделяем новую страницу
 	i = MakeSegment();
-	if (i->data!=nullptr)
-	{
+	//if (i->data!=nullptr)//@Что
+	//{
 		i->PushBlock(size);
 		return i;
-	}
+	//}
 	
-	return nullptr;
+	//return nullptr;
 }
-
 
 void Heap::FreeMemory(Segment* segment)
 {
@@ -58,20 +57,18 @@ void Heap::FreeMemory(Segment* segment)
 		prev = i;
 		i = i->prev;
 	}
-	i->ClearSegment();
+	//i->ClearSegment();//~
+	delete i;
 	if (prev) prev->prev = i->prev;
 }
 
-//Выделение памяти под новую страницу
-Heap::Segment* Heap::MakeSegment()
+Segment* Heap::MakeSegment()
 {
-	Segment* temp = new Segment (current);
+	Segment* temp = new Segment(current, segmentSize);
 	current = temp;
 	return current;
-
 }
 
-//Удаление всех страниц памяти
 void Heap::DeleteSegments()
 {
 	Segment* prev;

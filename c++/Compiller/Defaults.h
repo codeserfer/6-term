@@ -1,0 +1,1 @@
+#define SEGMENTSIZE 65539

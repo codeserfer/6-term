@@ -1,19 +1,29 @@
+// ֲֿׂטׁ.cpp : Defines the entry point for the console application.
+//
+
 #include "stdafx.h"
 #include "Heap.h"
-#include <list>
+#include "Segment.h"
+#include <iostream>
+
+using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	Segment* a = new Segment(nullptr);
+	char* b1 = (char*)a->PushBlock(10);
+	char* b2 = (char*)a->PushBlock(20);
+	char* b3 = (char*)a->PushBlock(30);
+	char* b4 = (char*)a->PushBlock(40);
+	char* b5 = (char*)a->PushBlock(65439);
 
-	Heap* h = new Heap();
-	std::list<void*> Mylist;
+	a->RemoveBlock(b3);
+	a->RemoveBlock(b2);
+	a->RemoveBlock(b4);
+	
+	char* b6 = (char*)a->PushBlock(60);
 
-	//double = 8 באיעמג
-	for (int i = 0; i < 8193; i++)
-	{
-		Mylist.push_back(h->GetMemory(sizeof(double)));
-	}
-	std::cout << h->GetCountOfSegments();
+	a->RemoveBlock(b5);
 
 	return 0;
 }

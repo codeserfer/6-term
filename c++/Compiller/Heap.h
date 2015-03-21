@@ -5,20 +5,22 @@
 class Heap
 {
 public:
-	Heap(int segmentSize = SEGMENTSIZE);
+
 	~Heap(void);
 
 	void* GetMemory(int);
+	void FreeMemory(void* offset);
 
+	static Heap& Instance();
 private:
 
-	int segmentSize;
-	Segment* current;
+	Heap(int segmentSize = SEGMENTSIZE);
 
 	Segment* MakeSegment();
 	void DeleteSegments();
 
 	void FreeMemory(Segment*);
 
+	int segmentSize;
+	Segment* current;
 };
-

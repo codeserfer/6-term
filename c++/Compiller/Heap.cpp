@@ -3,8 +3,15 @@
 #include "Heap.h"
 #include <iostream>
 #include <exception>
+#include <fstream> //ÓÁÐÀÒÜ
 
 using namespace std;
+
+Heap& Heap::Instance()
+{
+	static Heap _instance;
+	return _instance;
+}
 
 Heap::Heap(int segmentSize)
 {
@@ -14,13 +21,8 @@ Heap::Heap(int segmentSize)
 
 Heap::~Heap(void)
 {
-	Segment* i = current;
-	while (i)
-	{
-		//i->ClearSegment();//äåñòðóêòîð delete
-		delete i;
-		i = i->prev;
-	}
+	DeleteSegments();
+	current = nullptr;
 }
 
 void* Heap::GetMemory(int size)
@@ -34,6 +36,15 @@ void* Heap::GetMemory(int size)
 	while (i)
 	{
 		void* newBlock = i->PushBlock(size);
+
+		////
+		ofstream fout("output.txt", ios_base::app);
+		fout << newBlock << " " << size << endl;
+		fout.close();
+
+		////
+
+
 		if (newBlock != nullptr) return newBlock;
 		i = i->prev;
 	}
@@ -48,6 +59,11 @@ void* Heap::GetMemory(int size)
 	//return nullptr;
 }
 
+void Heap::FreeMemory(void* offset)
+{
+	current->RemoveBlock(offset);
+}
+
 void Heap::FreeMemory(Segment* segment)
 {
 	Segment* i = current;
@@ -57,7 +73,6 @@ void Heap::FreeMemory(Segment* segment)
 		prev = i;
 		i = i->prev;
 	}
-	//i->ClearSegment();//~
 	delete i;
 	if (prev) prev->prev = i->prev;
 }
@@ -69,14 +84,23 @@ Segment* Heap::MakeSegment()
 	return current;
 }
 
-void Heap::DeleteSegments()
+void Heap::DeleteSegments() 
 {
-	Segment* prev;
+	//oO
+	/*Segment* prev;
 
 	while (current != nullptr)
 	{
 		prev = current->prev;
 		delete prev;
 		current = prev;
+	}*/
+	Segment* i = current;
+	while (i)
+	{
+		Segment* temp = i;
+		i = i->prev;
+		delete temp;
 	}
+
 }

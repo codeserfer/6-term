@@ -87,10 +87,12 @@ void Segment::RemoveBlock(void* oldBlock)
 				if (j->offset == oldBlock)
 				{
 					RemoveBlock(j);
-					//if (i->firstBlock->used == false && i->firstBlock->next == nullptr)
-					//{
-						//i->ClearSegment(); //@@@@@OCHEN'
-					//}
+
+					//Если в странице не осталось больше занятых блоков и это не последняя страница, то удаляем ее
+					if (i->IsEmpty() && i->prev)
+					{
+						i->ClearSegment(); //@@@@@OCHEN'
+					}
 					return;
 				}
 				j = j->next;
@@ -134,6 +136,7 @@ void Segment::RemoveBlock(Block* oldBlock)
 
 void Segment::ClearSegment()
 {
+	//Не надо ли очистить весь список?
 	free(this->data);
 	this->firstBlock = this->lastBlock = nullptr;
 	this->data = this->prev = nullptr;
@@ -142,6 +145,8 @@ void Segment::ClearSegment()
 
 bool Segment::IsEmpty()
 {
-
+	if (this->firstBlock == this->lastBlock && this->firstBlock->size == false)
+		return true;
+	return false;
 }
 

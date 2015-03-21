@@ -4,7 +4,8 @@ class Queue : public List
 {
 public:
 	Queue() : List(sizeof(double)) { };
-	~Queue() { List::~List(); }
+	~Queue() { List::~List(); }
+
 	void   Put (double);
 	double Get ();
 };

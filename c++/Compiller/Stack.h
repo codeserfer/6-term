@@ -4,7 +4,8 @@ class Stack : public List
 {
 public:
 	Stack();
-	~Stack();
+	~Stack();
+
 	void   Push (double);
 	double Pop ();
 };

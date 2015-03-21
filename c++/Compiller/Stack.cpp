@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Stack.h"
 
+void Stack::Push(double x) 
+{
+	Add(&x); 
+}
 
-Stack::Stack() : List(sizeof(double)) { };
-Stack::~Stack() { List::~List(); }
-void Stack::Push(double x) {	Add(&x); }
 double Stack::Pop() {
 	double res;
 	TakeLast(&res); 

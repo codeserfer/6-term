@@ -5,7 +5,8 @@ class Deque : public List
 {
 public:
 	Deque() : List(sizeof(double)) { };
-	~Deque() { List::~List(); }
+	~Deque() { List::~List(); }
+
 	void   Put (double);
 	double First ();
 	double Last ();

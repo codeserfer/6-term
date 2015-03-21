@@ -1,0 +1,2 @@
+#define SEGMENTSIZE 65539
+#define LISTSIZE 64

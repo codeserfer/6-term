@@ -52,17 +52,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << *temp << endl;*/
 
 	int* temp1 = (int*)Heap::Instance().GetMemory(sizeof(int));
-	l->TakeFirst(temp1);
+	l->TakeLast(temp1);
 	cout << *temp1 << endl;
 	int* temp2 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	l->TakeFirst(temp2);
 	cout << *temp2 << endl;
 	int* temp3 = (int*)Heap::Instance().GetMemory(sizeof(int));
-	l->TakeFirst(temp3);
+	l->TakeLast(temp3);
 	cout << *temp3 << endl;
 	int* temp4 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	l->TakeFirst(temp4);
 	cout << *temp4 << endl;
+
+
+	int* temp5 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	l->TakeFirst(temp5);
+	cout << *temp5 << endl;
 
 
 	return 0;

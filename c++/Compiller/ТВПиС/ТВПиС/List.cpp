@@ -57,8 +57,6 @@ void List::CopyElement(void* destination, void* source)
 
 void List::Add(void* data)
 {
-	//int segmentNumber = lastIndex ? lastIndex / elementCount : 0;
-
 	int segmentNumber = lastIndex / elementCount;
 	int cell = lastIndex % elementCount;
 	Segment* segment = GetSegment(segmentNumber);
@@ -66,28 +64,40 @@ void List::Add(void* data)
 
 	char* offset = offset = (char*)segment->data + ((cell/* + 1*/) * elementSize); //!!! +1 или нет? Надо проверить формулу!
 	CopyElement(offset, data);
-	/*for (int i = 0, j = cell*elementSize; i < elementSize; i++, j++)
-	{
-		offset[j] = ((char*)data)[i];
-	}*/
 	lastIndex++;
 }
 
 void List::TakeFirst(void* store)
 {
+	if (Count() == 0)
+	{
+		CopyElement(store, nullptr);
+		return;
+	}
 	char* source = (char*)first->data + firstIndex*elementSize;
 	CopyElement(store, source);
-	elementCount--;
 	firstIndex++;
 }
 
 void List::TakeLast(void* store)
 {
-
+	if (Count() == 0)
+	{
+		store = nullptr;
+		return;
+	}
+	char* source = (char*)last->data + (lastIndex-1 % elementCount)*elementSize;
+	CopyElement(store, source);
+	lastIndex--;
 }
 
 void List::Take(int pos, void* store)
 {
+	if (Count() == 0)
+	{
+		store = nullptr;
+		return;
+	}
 	if (pos == 0)
 	{
 		TakeFirst(store);
@@ -136,7 +146,7 @@ void List::Sort(bool dir = true, int method = 0)
 
 int List::Count()
 {
-	return (lastIndex - firstIndex + 1);
+	return (lastIndex - firstIndex);
 }
 
 

@@ -11,7 +11,6 @@ List::List(int elementSize, int elementCount)
 	this->segmentCount = 0;
 	this->first = this->last = nullptr;
 	this->firstIndex = this->lastIndex = 0;
-	NewSegment();
 }
 
 
@@ -31,7 +30,9 @@ List::~List()
 
 void* List::Get(int pos)
 {
-	return nullptr; //Заглушка
+	void* data = Heap::Instance().GetMemory(sizeof(elementSize));
+	Take(pos, data);
+	return data;
 }
 
 
@@ -39,7 +40,7 @@ List::Segment* List::GetSegment (int id)
 {
 	Segment* i = first;
 	int n = 0;
-	if (id > segmentCount) return nullptr;
+	if (id > segmentCount || id < 0) return nullptr;
 
 	while (n != id)
 	{
@@ -59,10 +60,16 @@ void List::Add(void* data)
 {
 	int segmentNumber = lastIndex / elementCount;
 	int cell = lastIndex % elementCount;
-	Segment* segment = GetSegment(segmentNumber);
-	//!!!Проверить, есть ли вообще место в данном сегменте, или надо выделить новый?
 
-	char* offset = offset = (char*)segment->data + ((cell/* + 1*/) * elementSize); //!!! +1 или нет? Надо проверить формулу!
+	Segment* segment;
+	if (cell == 0)
+	{
+		segment = NewSegment();
+		cell = 0;
+	}
+	else segment = GetSegment(segmentNumber);
+
+	char* offset = offset = (char*)segment->data + ((cell) * elementSize);
 	CopyElement(offset, data);
 	lastIndex++;
 }
@@ -71,12 +78,19 @@ void List::TakeFirst(void* store)
 {
 	if (Count() == 0)
 	{
-		CopyElement(store, nullptr);
+		store = nullptr;
 		return;
 	}
 	char* source = (char*)first->data + firstIndex*elementSize;
 	CopyElement(store, source);
 	firstIndex++;
+
+	if (firstIndex == elementCount)
+	{
+		firstIndex -= elementCount;
+		lastIndex -= elementCount;
+		DeleteSegment(first);
+	}
 }
 
 void List::TakeLast(void* store)
@@ -86,9 +100,14 @@ void List::TakeLast(void* store)
 		store = nullptr;
 		return;
 	}
-	char* source = (char*)last->data + (lastIndex-1 % elementCount)*elementSize;
+	char* source = (char*)last->data + ((lastIndex-1) % elementCount)*elementSize;
 	CopyElement(store, source);
 	lastIndex--;
+
+	if (lastIndex % elementCount == 0)
+	{
+		DeleteSegment(last);
+	}
 }
 
 void List::Take(int pos, void* store)
@@ -150,20 +169,20 @@ int List::Count()
 }
 
 
-
 bool List::Error()
 {
 	return error;
 }
 
-void List::NewSegment()
+List::Segment* List::NewSegment()
 {
 	if (first == nullptr)
 	{
 		first = last = new Segment();
 		first->next = first->prev = nullptr;
 		first->data = Heap::Instance().GetMemory(elementCount*elementSize);
-		
+		segmentCount++;
+		return first;
 	}
 	else
 	{
@@ -171,14 +190,20 @@ void List::NewSegment()
 		last->next = temp;
 		temp->prev = last;
 		last = temp;
-		temp->data = Heap::Instance().GetMemory(sizeof(elementCount*elementSize));
+		temp->data = Heap::Instance().GetMemory(elementCount*elementSize);
+		segmentCount++;
+		return temp;
 	}
-	segmentCount++;
+	
 }
 
 void List::DeleteSegment(Segment* segment)
 {
+	if (segment == first) first = first->next;
+	if (segment == last) last = last->prev;
+
 	if (segment->prev) segment->prev->next = segment->next;
+	if (segment->next) segment->next->prev = segment->prev;
 	Heap::Instance().FreeMemory(segment->data);
 	segmentCount--;
 }

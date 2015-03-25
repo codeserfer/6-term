@@ -43,7 +43,7 @@ private:
 	bool error; //true, если возникла ошибка, допустим, при выделении памяти
 	int segmentCount; //Текущее количество сегментов
 
-	void NewSegment();
+	Segment* NewSegment();
 	void DeleteSegment(Segment*);
 	Segment* GetSegment(int);
 	void CopyElement(void*, void*);

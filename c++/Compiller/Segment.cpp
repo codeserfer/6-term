@@ -50,6 +50,7 @@ void* Segment::PushBlock(int blockSize)
 
 				newBlock->offset = i->offset;
 				i->offset = (char*)newBlock->offset + newBlock->size;
+
 				i->size -= blockSize;
 
 				if (newBlock->prev = i->prev)

@@ -39,7 +39,7 @@ void* Heap::GetMemory(int size)
 
 		////
 		ofstream fout("output.txt", ios_base::app);
-		fout << newBlock << " " << size << endl;
+		fout << newBlock << " " << size << " "  << (void*)((char*)newBlock + size) << endl;
 		fout.close();
 
 		////

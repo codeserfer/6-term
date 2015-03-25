@@ -25,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << *double1;
 	cout << endl << endl;*/
 
-	int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	/*int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	*int53 = 53;
 	int* int24 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	*int24 = 24;
@@ -39,17 +39,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	l->Add(int24);
 	l->Add(int53);
 	l->Add(int134);
-
-
-	/*int* temp = (int*)Heap::Instance().GetMemory(sizeof(int));
-	l->TakeFirst(temp);
-	cout << *temp << endl;
-	l->TakeFirst(temp);
-	cout << *temp << endl;
-	l->TakeFirst(temp);
-	cout << *temp << endl;
-	l->TakeFirst(temp);
-	cout << *temp << endl;*/
 
 	int* temp1 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	l->TakeLast(temp1);
@@ -67,7 +56,109 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	int* temp5 = (int*)Heap::Instance().GetMemory(sizeof(int));
 	l->TakeFirst(temp5);
-	cout << *temp5 << endl;
+	cout << *temp5 << endl;*/
+
+	/*List* l = new List(sizeof(int), 10);
+	int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int53 = 53;
+	int* int24 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int24 = 24;
+	int* int26 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int26 = 26;
+	int* int134 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int134 = 134;
+
+	l->Add(int24);
+	l->Add(int26);
+	l->Add(int53);
+	l->Add(int134);
+	l->Add(int134);
+	l->Add(int53);
+	l->Add(int24);
+	l->Add(int134);
+	l->Add(int26);
+	l->Add(int134);
+	l->Add(int24);
+	l->Add(int24);
+	l->Add(int134);
+
+	int* t = (int*)Heap::Instance().GetMemory(sizeof(int));
+	for (int i = 0; i < 13; i++)
+	{
+		l->TakeFirst(t);
+		std::cout << *t << endl;
+	}*/
+
+
+	/*List* l = new List(sizeof(int));
+	int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int53 = 53;
+
+	for (int i = 0; i < 500; i++)
+	{
+		l->Add(int53);
+	}
+
+	int* t = (int*)Heap::Instance().GetMemory(sizeof(int));
+
+	for (int i = 0; i < 500; i++)
+	{
+		l->TakeFirst(t);
+	}*/
+
+
+	
+	/*int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int53 = 53;
+	int* int24 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int24 = 24;
+	int* int26 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int26 = 26;
+	int* int134 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int134 = 134;
+
+	List* l = new List(sizeof(int), 10);
+	l->Add(int24);
+	l->Add(int26);
+	l->Add(int53);
+	l->Add(int134);
+	l->Add(int134);
+	l->Add(int53);
+	l->Add(int24);
+	l->Add(int134);
+	l->Add(int26);
+	l->Add(int134);
+	l->Add(int24);
+	l->Add(int24);
+	l->Add(int134);
+	l->Add(int26);
+
+
+	int* t = (int*)Heap::Instance().GetMemory(sizeof(int));
+	for (int i = 0; i < 14; i++)
+	{
+		l->TakeLast(t);
+		std::cout << *t << endl;
+	}*/
+
+	List* l = new List(sizeof(int));
+	int* int53 = (int*)Heap::Instance().GetMemory(sizeof(int));
+	*int53 = 53;
+
+	for (int i = 0; i < 500; i++)
+	{
+		l->Add(int53);
+	}
+
+	int* t = (int*)Heap::Instance().GetMemory(sizeof(int));
+
+	for (int i = 0; i < 500; i++)
+	{
+		l->TakeLast(t);
+	}
+
+
+
 
 
 	return 0;

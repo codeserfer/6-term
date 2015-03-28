@@ -122,6 +122,11 @@ void List::Take(int pos, void* store)
 		TakeFirst(store);
 		return;
 	}
+	if (pos == firstIndex + lastIndex-1)
+	{
+		TakeLast(store);
+		return;
+	}
 
 	pos += firstIndex;
 	Segment* currentSegment = GetSegment(pos / elementCount);
@@ -152,13 +157,27 @@ void List::Take(int pos, void* store)
 		}
 	}
 
-	if (currentSegment->next != nullptr && currentSegment->next->next != nullptr) //???
-		DeleteSegment(currentSegment->next->next);
+	if (IsFree(currentSegment)) DeleteSegment(currentSegment);
+
 
 	lastIndex--;
 }
 
-void List::Sort(bool dir = true, int method = 0)
+bool List::IsFree(Segment* segment)
+{
+	Segment* i = first;
+	int j = 0;
+	while (i)
+	{
+		j++;
+		i = i->next;
+	}
+
+	if (lastIndex /*+ firstIndex*/ <= (j-1)*elementCount) return true;
+	return false;
+}
+
+void List::Sort(bool dir, int method)
 {
 
 }
@@ -181,6 +200,13 @@ List::Segment* List::NewSegment()
 		first = last = new Segment();
 		first->next = first->prev = nullptr;
 		first->data = Heap::Instance().GetMemory(elementCount*elementSize);
+
+		//??
+		if (first->data == nullptr)
+		{
+			error = true;
+			return nullptr;
+		}
 		segmentCount++;
 		return first;
 	}
@@ -191,6 +217,12 @@ List::Segment* List::NewSegment()
 		temp->prev = last;
 		last = temp;
 		temp->data = Heap::Instance().GetMemory(elementCount*elementSize);
+		//??
+		if (first->data == nullptr)
+		{
+			error = true;
+			return nullptr;
+		}
 		segmentCount++;
 		return temp;
 	}
@@ -206,4 +238,18 @@ void List::DeleteSegment(Segment* segment)
 	if (segment->next) segment->next->prev = segment->prev;
 	Heap::Instance().FreeMemory(segment->data);
 	segmentCount--;
+}
+
+void* List::operator[](int n)
+{
+	return G(n);
+}
+void* List::G(int n)
+{
+	n += firstIndex;
+	Segment* currentSegment = GetSegment(n / elementCount);
+	int elementIndex = n % elementCount;
+
+	char* source = (char*)currentSegment->data + elementIndex*elementSize;
+	return source;
 }

@@ -19,3 +19,8 @@ double Deque::Last()
 	TakeLast(&res);
 	return res; 
 }
+
+Deque::~Deque()
+{
+	List::~List();
+}

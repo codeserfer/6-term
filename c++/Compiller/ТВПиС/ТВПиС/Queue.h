@@ -3,10 +3,11 @@
 class Queue : public List
 {
 public:
-	Queue() : List(sizeof(double)) { };
-	~Queue() { List::~List(); }
+	Queue(int elementCount = LISTSIZE) : List(sizeof(double), elementCount) { };
+	~Queue();
 
-	void   Put (double);
+	void Put (double);
 	double Get ();
+	void Sort(bool dir = true, int method = 0);
 };
 

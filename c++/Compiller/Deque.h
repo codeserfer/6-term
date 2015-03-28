@@ -1,11 +1,12 @@
 #pragma once
 #include "List.h"
+#include "Defaults.h"
 
 class Deque : public List
 {
 public:
-	Deque() : List(sizeof(double)) { };
-	~Deque() { List::~List(); }
+	Deque(int elementCount = LISTSIZE) : List(sizeof(double), elementCount) { };
+	~Deque();
 
 	void   Put (double);
 	double First ();

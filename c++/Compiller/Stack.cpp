@@ -11,3 +11,8 @@ double Stack::Pop() {
 	TakeLast(&res); 
 	return res; 
 }
+
+Stack::~Stack()
+{
+	List::~List();
+}

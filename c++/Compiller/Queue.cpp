@@ -12,3 +12,8 @@ double Queue::Get()
 	TakeFirst (&res);
 	return res; 
 }
+
+Queue::~Queue()
+{
+	List::~List(); 
+}

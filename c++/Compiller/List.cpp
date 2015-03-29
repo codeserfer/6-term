@@ -240,10 +240,6 @@ void List::DeleteSegment(Segment* segment)
 	segmentCount--;
 }
 
-void* List::operator[](int n)
-{
-	return G(n);
-}
 void* List::G(int n)
 {
 	n += firstIndex;
@@ -252,4 +248,23 @@ void* List::G(int n)
 
 	char* source = (char*)currentSegment->data + elementIndex*elementSize;
 	return source;
+}
+
+void List::S(void* data, int n)
+{
+	n += firstIndex;
+	Segment* currentSegment = GetSegment(n / elementCount);
+	int elementIndex = n % elementCount;
+
+	char* source = (char*)currentSegment->data + elementIndex*elementSize;
+	CopyElement(source, data);
+}
+
+void List::Swap(int a, int b)
+{
+	//void* temp = G(a);
+	void* temp = Heap::Instance().GetMemory(elementSize);
+	CopyElement(temp, G(a));
+	S(G(b), a);
+	S(temp, b);
 }

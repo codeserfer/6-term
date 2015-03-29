@@ -10,8 +10,11 @@ public:
 
 	void* Get(int);
 	void Add(void*);
-	void* operator[](int);
+
+
 	void* G(int);
+	void S(void*, int);
+	void Swap(int, int);
 
 
 	// returns and deletes elements

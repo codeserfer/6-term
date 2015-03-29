@@ -20,21 +20,62 @@ int _tmain(int argc, _TCHAR* argv[])
 	double d134 = *(double*)Heap::Instance().GetMemory(sizeof(double));
 	d134 = 134;
 
-	Stack* l = new Stack(5);
-	l->Push(d53);
-	l->Push(d24);
-	l->Push(d26);
-	l->Push(d26);
-	l->Push(d53);
-	l->Push(d24);
-	l->Push(d134);
-	l->Push(d24);
-	l->Push(d134);
-	l->Sort(false);
+	List* l = new List(sizeof(double), 5);
+	l->Add(&d53);
+	l->Add(&d26);
+	l->Add(&d24);
+	l->Add(&d26);
+	l->Add(&d134);
+	l->Add(&d53);
+	l->Add(&d26);
+	l->Add(&d134);
+	l->Add(&d26);
+	l->Add(&d53);
+	l->Add(&d24);
+	l->Add(&d26);
+	l->Add(&d24);
+	l->Add(&d53);
+	l->Add(&d134);
+	l->Add(&d134);
+	l->Add(&d26);
+	l->Add(&d53);
+	l->Add(&d26);
+	l->Add(&d134);
+	l->Add(&d53);
+	l->Add(&d134);
+
+	cout << "Count before taking: " << l->Count() << endl;
+
+	double t = *(double*)Heap::Instance().GetMemory(sizeof(double));
+	l->TakeFirst(&t);
+	cout << "First element: " << t << endl;
+
+	l->TakeLast(&t);
+	cout << "Last element: " << t << endl;
+
+	l->Take(6, &t);
+	cout << "Sixth element: " << t << endl;
+
+	cout << "Count after taking: " << l->Count() << endl;
+
+
+	Stack* s = new Stack(5);
+	s->Push(d53);
+	s->Push(d24);
+	s->Push(d26);
+	s->Push(d26);
+	s->Push(d53);
+	s->Push(d24);
+	s->Push(d134);
+	s->Push(d24);
+	s->Push(d134);
+	s->Sort(false);
+
+	cout << "Sorted stack:" << endl;
 	
 	for (int i = 0; i < 9; i++)
 	{
-		cout << l->Pop() << endl;
+		cout << s->Pop() << endl;
 	}
 
 	

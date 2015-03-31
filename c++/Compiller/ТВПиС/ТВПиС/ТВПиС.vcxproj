@@ -82,6 +82,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Defaults.h" />
     <ClInclude Include="Deque.h" />
+    <ClInclude Include="Hash.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Queue.h" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Deque.cpp" />
+    <ClCompile Include="Hash.cpp" />
     <ClCompile Include="Heap.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="Queue.cpp" />

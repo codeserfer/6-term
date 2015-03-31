@@ -1,4 +1,4 @@
-﻿Сборка начата 31.03.2015 12:44:50.
+﻿Сборка начата 31.03.2015 14:29:37.
 Проект "C:\Users\codeserfer\Dropbox\Projects\ТВПиС\ТВПиС\ТВПиС.vcxproj" в узле 2 (целевые объекты Build).
 ClCompile:
   C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\ТВПиС.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "ТВПиС.cpp"
@@ -17,4 +17,4 @@ Link:
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:01.43
+Затраченное время: 00:00:03.03

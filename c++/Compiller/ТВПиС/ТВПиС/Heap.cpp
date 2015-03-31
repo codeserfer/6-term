@@ -26,7 +26,7 @@ Heap::~Heap(void)
 
 void* Heap::GetMemory(int size)
 {
-	if (size > SEGMENTSIZE || size < 0)
+	if (size > this->segmentSize || size < 0)
 	{
 		throw new bad_alloc();
 	}

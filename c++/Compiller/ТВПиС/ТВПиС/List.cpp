@@ -203,29 +203,20 @@ bool List::Error()
 
 List::Segment* List::NewSegment()
 {
+	Segment* temp = new Segment();
+
 	if (first == nullptr)
 	{
-		first = last = new Segment();
+		first = last = temp;
 		first->next = first->prev = nullptr;
-
-		try
-		{
-			first->data = Heap::Instance().GetMemory(elementCount*elementSize);
-		}
-		catch (bad_alloc)
-		{
-			error = true;
-			return nullptr;
-		}
-
-		segmentCount++;
-		return first;
 	}
 
-	Segment* temp = new Segment();
-	last->next = temp;
-	temp->prev = last;
-	last = temp;
+	else
+	{
+		last->next = temp;
+		temp->prev = last;
+		last = temp;
+	}
 
 	try
 	{

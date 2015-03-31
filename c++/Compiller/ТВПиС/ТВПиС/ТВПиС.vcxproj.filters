@@ -54,6 +54,9 @@
     <ClInclude Include="Stack.h">
       <Filter>Header Files\List</Filter>
     </ClInclude>
+    <ClInclude Include="SortingMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

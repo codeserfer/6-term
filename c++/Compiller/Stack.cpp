@@ -17,21 +17,21 @@ Stack::~Stack()
 	List::~List();
 }
 
-void Stack::Sort(bool dir, int method)
+void Stack::Sort(bool dir, SortingMethod method)
 {
 	switch (method)
 	{
-	case 0:
-		SortMethod1(0, Count() - 1, dir);
-	case 1:
-		SortMethod2(dir);
+	case SortingMethod::QuickSort:
+		QuickSort(0, Count() - 1, dir);
+	case SortingMethod::BubbleSort:
+		BubbleSort(dir);
 	default:
 		break;
 	}
 
 }
 
-void Stack::SortMethod1(int first, int last, bool dir)
+void Stack::QuickSort(int first, int last, bool dir)
 {
 	int i = first;
 	int j = last;
@@ -57,12 +57,12 @@ void Stack::SortMethod1(int first, int last, bool dir)
 	} while (i <= j);
 
 	if (i < last)
-		SortMethod1(i, last, dir);
+		QuickSort(i, last, dir);
 	if (first < j)
-		SortMethod1(first, j, dir);
+		QuickSort(first, j, dir);
 }
 
-void Stack::SortMethod2(bool dir)
+void Stack::BubbleSort(bool dir)
 {
 	int n = Count();
 	for (int i = 0; i < n - 1; i++)

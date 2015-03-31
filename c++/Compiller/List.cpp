@@ -1,18 +1,25 @@
 #include "stdafx.h"
 #include "List.h"
-#include <iostream> //!!!
+#include <exception>
 
+using namespace std;
+
+#include <iostream> //!!!
 
 List::List(int elementSize, int elementCount)
 {
+	if (elementSize <= 0 || elementCount <= 0) throw new bad_alloc();
+
 	this->elementSize = elementSize;
 	this->elementCount = elementCount;
+
 	this->error = false;
+
 	this->segmentCount = 0;
+
 	this->first = this->last = nullptr;
 	this->firstIndex = this->lastIndex = 0;
 }
-
 
 List::~List()
 {
@@ -34,7 +41,6 @@ void* List::Get(int pos)
 	Take(pos, data);
 	return data;
 }
-
 
 List::Segment* List::GetSegment (int id)
 {
@@ -58,19 +64,22 @@ void List::CopyElement(void* destination, void* source)
 
 void List::Add(void* data)
 {
+	if (data == nullptr)
+		return;
+
 	int segmentNumber = lastIndex / elementCount;
 	int cell = lastIndex % elementCount;
 
 	Segment* segment;
 	if (cell == 0)
-	{
 		segment = NewSegment();
-		cell = 0;
-	}
-	else segment = GetSegment(segmentNumber);
+	else
+		segment = GetSegment(segmentNumber);
 
-	char* offset = offset = (char*)segment->data + ((cell) * elementSize);
+	char* offset = (char*)segment->data + (cell * elementSize);
+
 	CopyElement(offset, data);
+
 	lastIndex++;
 }
 
@@ -177,7 +186,7 @@ bool List::IsFree(Segment* segment)
 	return false;
 }
 
-void List::Sort(bool dir, int method)
+void List::Sort(bool dir, SortingMethod method)
 {
 
 }
@@ -186,7 +195,6 @@ int List::Count()
 {
 	return (lastIndex - firstIndex);
 }
-
 
 bool List::Error()
 {
@@ -199,34 +207,38 @@ List::Segment* List::NewSegment()
 	{
 		first = last = new Segment();
 		first->next = first->prev = nullptr;
-		first->data = Heap::Instance().GetMemory(elementCount*elementSize);
 
-		//??
-		if (first->data == nullptr)
+		try
+		{
+			first->data = Heap::Instance().GetMemory(elementCount*elementSize);
+		}
+		catch (bad_alloc)
 		{
 			error = true;
 			return nullptr;
 		}
+
 		segmentCount++;
 		return first;
 	}
-	else
+
+	Segment* temp = new Segment();
+	last->next = temp;
+	temp->prev = last;
+	last = temp;
+
+	try
 	{
-		Segment* temp = new Segment();
-		last->next = temp;
-		temp->prev = last;
-		last = temp;
 		temp->data = Heap::Instance().GetMemory(elementCount*elementSize);
-		//??
-		if (first->data == nullptr)
-		{
-			error = true;
-			return nullptr;
-		}
-		segmentCount++;
-		return temp;
 	}
-	
+	catch (bad_alloc)
+	{
+		error = true;
+		return nullptr;
+	}
+
+	segmentCount++;
+	return temp;
 }
 
 void List::DeleteSegment(Segment* segment)

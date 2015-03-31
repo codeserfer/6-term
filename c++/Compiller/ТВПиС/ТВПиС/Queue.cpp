@@ -18,21 +18,21 @@ Queue::~Queue()
 	List::~List(); 
 }
 
-void Queue::Sort(bool dir, int method)
+void Queue::Sort(bool dir, SortingMethod method)
 {
 	switch (method)
 	{
-	case 0:
-		SortMethod1(0, Count()-1, dir);
-	case 1:
-		SortMethod2(dir);
+	case SortingMethod::QuickSort:
+		QuickSort(0, Count() - 1, dir);
+	case SortingMethod::BubbleSort:
+		BubbleSort(dir);
 	default:
 		break;
 	}
 
 }
 
-void Queue::SortMethod1(int first, int last, bool dir)
+void Queue::QuickSort(int first, int last, bool dir)
 {
 	int i = first;
 	int j = last;
@@ -43,7 +43,7 @@ void Queue::SortMethod1(int first, int last, bool dir)
 		while (*(int*)G(j) > x) j--;
 
 		if (i <= j) {
-			if (dir) 
+			if (dir)
 			{
 				if (*(double*)G(i) > *(double*)G(j)) Swap(i, j);
 			}
@@ -51,19 +51,19 @@ void Queue::SortMethod1(int first, int last, bool dir)
 			{
 				if (*(double*)G(i) < *(double*)G(j)) Swap(i, j);
 			}
-			
+
 			i++;
 			j--;
 		}
 	} while (i <= j);
 
 	if (i < last)
-		SortMethod1 (i, last, dir);
+		QuickSort(i, last, dir);
 	if (first < j)
-		SortMethod1 (first, j, dir);
+		QuickSort(first, j, dir);
 }
 
-void Queue::SortMethod2(bool dir)
+void Queue::BubbleSort(bool dir)
 {
 	int n = Count();
 	for (int i = 0; i < n - 1; i++)

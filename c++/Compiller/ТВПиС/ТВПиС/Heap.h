@@ -11,7 +11,7 @@ public:
 	void* GetMemory(int);
 	void FreeMemory(void* offset);
 
-	static Heap& Instance();
+	static Heap& Instance(int segmentSize = SEGMENTSIZE);
 private:
 
 	Heap(int segmentSize = SEGMENTSIZE);

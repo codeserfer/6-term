@@ -11,7 +11,7 @@ using namespace std;
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	double d53 = *(double*)Heap::Instance().GetMemory(sizeof(double));
+	double d53 = *(double*)Heap::Instance(4000).GetMemory(sizeof(double));
 	d53 = 53;
 	double d24 = *(double*)Heap::Instance().GetMemory(sizeof(double));
 	d24 = 24;
@@ -69,7 +69,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	s->Push(d134);
 	s->Push(d24);
 	s->Push(d134);
-	s->Sort(false);
+
+	s->Sort(false, SortingMethod::BubbleSort);
 
 	cout << "Sorted stack:" << endl;
 	
@@ -77,7 +78,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		cout << s->Pop() << endl;
 	}
-
 	
 
 	return 0;

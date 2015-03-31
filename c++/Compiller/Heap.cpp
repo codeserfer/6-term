@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "Segment.h"
 #include "Heap.h"
-#include <iostream>
 #include <exception>
-#include <fstream> //ÓÁÐÀÒÜ
 
 using namespace std;
 
-Heap& Heap::Instance()
+
+Heap& Heap::Instance(int segmentSize)
 {
-	static Heap _instance;
+	static Heap _instance (segmentSize);
 	return _instance;
 }
 
@@ -33,30 +32,21 @@ void* Heap::GetMemory(int size)
 	}
 
 	Segment* i = current;
+
 	while (i)
 	{
 		void* newBlock = i->PushBlock(size);
 
-		////
-		ofstream fout("output.txt", ios_base::app);
-		fout << newBlock << " " << size << " "  << (void*)((char*)newBlock + size) << endl;
-		fout.close();
-
-		////
-
-
-		if (newBlock != nullptr) return newBlock;
+		if (newBlock != nullptr)
+			return newBlock;
+		
 		i = i->prev;
 	}
 
-	i = MakeSegment();
-	//if (i->data!=nullptr)//@×òî
-	//{
-		i->PushBlock(size);
-		return i;
-	//}
-	
-	//return nullptr;
+	i = MakeSegment(); //@ Exception
+	i->PushBlock(size);
+
+	return i;
 }
 
 void Heap::FreeMemory(void* offset)
@@ -86,16 +76,8 @@ Segment* Heap::MakeSegment()
 
 void Heap::DeleteSegments() 
 {
-	//oO
-	/*Segment* prev;
-
-	while (current != nullptr)
-	{
-		prev = current->prev;
-		delete prev;
-		current = prev;
-	}*/
 	Segment* i = current;
+
 	while (i)
 	{
 		Segment* temp = i;

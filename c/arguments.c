@@ -7,7 +7,7 @@ int main(int argc, char * argv[])
 
     int opt;
 
-    while ((opt=getopt(argc, argv, "i:0:")))
+    while ((opt=getopt(argc, argv, "i:0:"))!=-1)
     {
         switch (opt)
         {
@@ -19,4 +19,3 @@ int main(int argc, char * argv[])
 
     return 0;
 }
-

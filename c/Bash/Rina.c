@@ -377,6 +377,9 @@ void MyExec(char *cmd)
     if( IS_CMD(echo) )
 		SHCMD_EXEC(echo);
     else
+    if( IS_CMD(du) )
+		SHCMD_EXEC(du);
+    else
 	{
 	// иначе вызов внешней команды
 		execvp(params[0], params);
@@ -448,34 +451,68 @@ int ExecConv(char *cmds[], int n, int curr)
 
 	return 0;
 }
-// главная функция, цикл ввода строк (разбивка конвейера, запуск команды)
-int main()
+
+void Do (char* command)
 {
-	char cmdline[1024];
-	char *p, *cmds[256], *token;
-	int cmd_cnt;
+    char *p, *token;
+    int cmd_cnt;
+    char *cmds[256];
 
-	while( shellActive )
+    if( (p = strstr(command,"\n")) != NULL ) p[0] = 0;
+
+    token = strtok(command, "|");
+	for(cmd_cnt = 0; token && cmd_cnt < 256; cmd_cnt++ )
 	{
-		printf("[%s]# ",getenv("PWD"));
-		fflush(stdout);
-
-		fgets(cmdline,1024,stdin);
-		if( (p = strstr(cmdline,"\n")) != NULL ) p[0] = 0;
-
-		token = strtok(cmdline, "|");
-		for(cmd_cnt = 0; token && cmd_cnt < 256; cmd_cnt++ )
-		{
-			cmds[cmd_cnt] = strdup(token);
-			token = strtok(NULL, "|");
-		}
-		cmds[cmd_cnt] = NULL;
-
-		if( cmd_cnt > 0 )
-		{
-			ExecConv(cmds,cmd_cnt,0);
-		}
+		cmds[cmd_cnt] = strdup(token);
+		token = strtok(NULL, "|");
 	}
+	cmds[cmd_cnt] = NULL;
+
+	if( cmd_cnt > 0 )
+	{
+		ExecConv(cmds,cmd_cnt,0);
+	}
+}
+
+
+// главная функция, цикл ввода строк (разбивка конвейера, запуск команды)
+int main(int argc, char** argv)
+{
+
+    if (argc>1)
+    {
+        FILE* file = fopen(argv[1], "r");
+        if (!file)
+        {
+            printf("Can't open file!\n");
+            return 0;
+        }
+
+        char str [LINELENGHT];
+
+        while(fgets(str,sizeof(str),file))
+        {
+            Do (str);
+        }
+    }
+    else
+    {
+        while( shellActive )
+        {
+
+            if (getenv("PS1"))
+                printf("%s", getenv("PS1"));
+            else
+                printf("[%s]# ",getenv("PWD"));
+
+            fflush(stdout);
+
+            char cmdline[1024];
+            fgets(cmdline,1024,stdin);
+
+            Do (cmdline);
+        }
+    }
 
 	return 0;
 }

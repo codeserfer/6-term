@@ -606,7 +606,8 @@ int main(int argc, char** argv)
 
         while(fgets(str,sizeof(str),file))
         {
-            Do (str);
+            char* varablesReplace = VariablesReplace(str);
+            Do (varablesReplace);
         }
     }
     else

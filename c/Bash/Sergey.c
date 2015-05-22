@@ -147,7 +147,7 @@ void nl(char* filePath)
 		return;
 	}
 
-	char str [LINELENGHT];
+	char str [1024];
 	int i=1;
 	while(fgets(str,sizeof(str),file))
 		printf("%i\t%s",i++,str);
@@ -284,7 +284,7 @@ void grep(char* filePath, char* string)
 		return;
 	}
 
-	char str [LINELENGHT];
+	char str [1024];
 	while(fgets(str,sizeof(str),file))
 		if (strstr(str,string))
 			printf("%s",str);
@@ -321,7 +321,6 @@ SHCMD(wc)
         case 'l':
             while (optind < np)
             {
-                printf("Attr: %s\n", params[optind]);
                 wc (params[optind++], c);
             }
 
@@ -657,8 +656,8 @@ int main(int argc, char** argv)
 
             fflush(stdout);
 
-            char cmdline[LINELENGHT];
-            fgets(cmdline,LINELENGHT,stdin);
+            char cmdline[1024];
+            fgets(cmdline,1024,stdin);
 
             Do (cmdline);
         }
@@ -666,3 +665,4 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+

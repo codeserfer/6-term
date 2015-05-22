@@ -1,4 +1,4 @@
-﻿#include <string.h>
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -14,14 +14,14 @@
 #include <time.h>
 #include <getopt.h>
 
-#define PROC_FS "/proc"
-#define CMDLINE_LENGTH 1024
-#define CMDS_LENGTH 256
-#define PARAMS_LENGTH 256
+#include <fcntl.h>
+#include <sys/sendfile.h>
 
+#define PROC_FS "/proc"
+#define LINELENGHT 1024
 
 typedef struct proc_t
-{
+{ // http://www.protocols.ru/modules.php?name=News&file=article&sid=57
 	int pid;
 	char cmd[256];
 	unsigned char state;
@@ -62,13 +62,7 @@ typedef struct proc_t
 	time_t ctime;
 } proc_t;
 
-bool active = true;
 
-struct dirent *entry;
-
-// <summary>
-// Получение сведений об активных процессах.
-// </summary>
 void ReadProcStat(struct proc_t *ps, char* fname)
 {
 	char path[256];
@@ -96,103 +90,83 @@ void ReadProcStat(struct proc_t *ps, char* fname)
 	fclose(file);
 }
 
-// <summary>
-// Рекурсивный подсчет размера файлов в каталоге.
-// </summary>
-int64_t RecursiveCount()
+int CopyFile(const char* source, const char* destination)
 {
-    int64_t sum = 0;
-    DIR *dir_p;
-    struct dirent *dir_entry_p;
-
-    dir_p = opendir(".");
-
-    while (dir_entry_p = readdir(dir_p))
+    int input, output;
+    if ((input = open(source, O_RDONLY)) == -1)
     {
-        struct stat stat2;
-        stat (dir_entry_p->d_name, &stat2);
-
-        if(dir_entry_p->d_name[0]!='.')
-        {
-            if(S_ISDIR(stat2.st_mode))
-            {
-                chdir(dir_entry_p->d_name);
-                sum += RecursiveCount();
-                chdir("..");
-            }
-            else
-            {
-                sum += stat2.st_size;
-            }
-        }
+        return -1;
+    }
+    if ((output = open(destination, O_RDWR | O_CREAT)) == -1)
+    {
+        close(input);
+        return -1;
     }
 
-    closedir(dir_p);
-    return sum;
+    //Here we use kernel-space copying for performance reasons
+#if defined(__APPLE__) || defined(__FreeBSD__)
+    //fcopyfile works on FreeBSD and OS X 10.5+
+    int result = fcopyfile(input, output, 0, COPYFILE_ALL);
+#else
+    //sendfile will work with non-socket output (i.e. regular file) on Linux 2.6.33+
+    off_t bytesCopied = 0;
+    struct stat fileinfo = {0};
+    fstat(input, &fileinfo);
+    int result = sendfile(output, input, &bytesCopied, fileinfo.st_size);
+#endif
+
+    char mode[] = "0644";
+    int i;
+    i = strtol(mode, 0, 8);
+    chmod (destination,i);
+
+    close(input);
+    close(output);
+
+    return result;
 }
+
+
+struct dirent *entry;
+
+
+int shellActive = 1; // требуется для команды exit
+
+//  команды оформлены в виде макросов
+//  доп. информация http://en.wikipedia.org/wiki/C_preprocessor
 
 #define SHCMD(x) int shcmd_##x (char* cmd, char* params[])
 #define SHCMD_EXEC(x) shcmd_##x (params[0], params)
 #define IS_CMD(x) strncmp(#x,cmd,strlen(cmd)) == 0
 
-// <summary>
-// Вывод текста, указанного в параметре.
-// </summary>
-SHCMD (echo)
+
+SHCMD(pwd)
 {
-    int np = 0;
-    bool nParam = false;
-
-    while (params[np] != NULL)
-    {
-        np++;
-    }
-
-    int c;
-    while ((c = getopt(np, params, "n"))!=-1) {
-        switch (c) {
-
-        case 'n':
-            nParam = true;
-            break;
-        default:
-            printf ("Error!\n", c);
-        }
-    }
-
-    while (optind < np)
-    {
-        printf("%s ", params[optind++]);
-    }
-
-    if (!nParam)
-        printf("\n");
-
-    return 0;
+	printf("%s\n",getenv("PWD"));
+	return 0;
 }
 
-// <summary>
-// Переход в каталог, указанный в параметре,
-// или в домашний каталог, если параметр не указан.
-// </summary>
+SHCMD(exit)
+{
+	shellActive = 0;
+	printf("Bye, bye!\n");
+	return 0;
+}
+
 SHCMD(cd)
 {
     char* oldDir = getenv("PWD");
 
     if (!params[1] || !strcmp(params[1], "~"))
-    {
         params[1] = getenv("HOME");
-    }
 
     if (!strcmp(params[1], "-"))
-    {
         params[1] = getenv("OLDPWD");
-    }
 
     chdir(params[1]);
 
-    char currentDir [256];
-    getcwd(currentDir, 256);
+    char currentDir [200];
+    getcwd(currentDir, 200);
 
     setenv ("PWD", currentDir, 1);
     setenv("OLDPWD", oldDir, 1);
@@ -200,75 +174,18 @@ SHCMD(cd)
 	return 0;
 }
 
-// <summary>
-// Вывод имени текущего каталога.
-// </summary>
-SHCMD(pwd)
-{
-	printf("%s\n",getenv("PWD"));
-	return 0;
-}
 
-// <summary>
-// Подсчет размера файлов в каталоге.
-// </summary>
-SHCMD(du)
-{
-    int np = 0;
-    while (params[np])
-    {
-        np++;
-    }
-
-    struct stat stat_p;
-    stat (params[np - 1], &stat_p);
-
-    if (np != 2)
-    {
-        printf("Error.\n");
-        return -1;
-    }
-
-    if(params[1][0] == '-')
-    {
-        if(params[1][1] == 's')
-        {
-            printf("%d\n", RecursiveCount());
-        }
-    }
-    else
-    {
-        if(S_ISDIR(stat_p.st_mode))
-        {
-            chdir(params[np - 1]);
-            printf("%ld\n", RecursiveCount());
-        }
-        else
-        {
-            printf("%ld\n", stat_p.st_size);
-        }
-    }
-
-    return 0;
-}
-
-// <summary>
-// Вывод списка файлов в каталоге.
-// </summary>
 SHCMD(ls)
 {
     bool lParam = false;
     int c, np = 0, intArg;
 
-    while (params[np])
-    {
+    while (params[np]!=NULL)
         np++;
-    }
 
-    while ((c = getopt(np, params, "l"))!= -1)
-    {
-        switch (c)
-        {
+    while ((c = getopt(np, params, "l"))!=-1) {
+        switch (c) {
+
         case 'l':
             lParam = true;
             break;
@@ -277,10 +194,9 @@ SHCMD(ls)
         }
     }
 
-    if (np == optind)
-    {
-        params[np++] = ".";
-    }
+
+    if (np == optind) params[np++] = ".";
+
 
 	DIR *D;
     struct dirent *de;
@@ -290,93 +206,67 @@ SHCMD(ls)
     int mode,right_ind;
     static char* rights = "rwxrwxrwx";
     char *nuser,*ngroup;
-
     while (optind < np)
     {
-        printf("%s:\n", params[optind]);
-        D = opendir(params[optind++]);
+    printf("%s:\n", params[optind]);
+    D = opendir(params[optind++]);
 
-        while (de = readdir(D))
+    while( de = readdir(D) )
+    {
+        if( de->d_name[0] != '.' )
         {
-            if (de->d_name[0] != '.')
+            lstat(de->d_name,&st);
+            mode = st.st_mode;
+            if (lParam) S_ISDIR(mode)?printf("d"):printf("-");
+            mode &= 0777;
+            right_ind = 0;
+            while( right_ind < 9 )
             {
-                lstat(de->d_name, &st);
-                mode = st.st_mode;
-                if (lParam)
-                {
-                    S_ISDIR(mode) ? printf("d") : printf("-");
-                }
-
-                mode &= 0777;
-                right_ind = 0;
-
-                while (right_ind < 9 )
-                {
-                    if (lParam)
-                    {
-                        mode&256?printf("%c",rights[right_ind]):printf("-");
-                    }
-                    mode <<= 1;
-                    right_ind++;
-                }
-
-                if (pwd=getpwuid(st.st_uid))
-                {
-                    nuser=pwd->pw_name;
-                }
-                else
-                {
-                    sprintf(nuser,"%d",st.st_uid);
-                }
-
-                if (grp = getgrgid(st.st_gid))
-                {
-                    ngroup=grp->gr_name;
-                }
-                else
-                {
-                    sprintf(ngroup,"%d",st.st_gid);
-                }
-
-                if (lParam)
-                {
-                    printf("%3d %s\t%s %8d %s\n",st.st_nlink,nuser,ngroup,st.st_size,de->d_name);
-                }
-                else
-                {
-                    printf("%s\n", de->d_name);
-                }
+                if (lParam) mode&256?printf("%c",rights[right_ind]):printf("-");
+                mode <<= 1;
+                right_ind++;
             }
+            if (pwd=getpwuid(st.st_uid))
+                nuser=pwd->pw_name;
+            else
+                sprintf(nuser,"%d",st.st_uid);
+
+            if (grp=getgrgid(st.st_gid))
+                ngroup=grp->gr_name;
+            else
+                sprintf(ngroup,"%d",st.st_gid);
+
+            if (lParam)
+                printf("%3d %s\t%s %8d %s\n",st.st_nlink,nuser,ngroup,st.st_size,de->d_name);
+            else
+                printf("%s\n", de->d_name);
         }
-        closedir(D);
-        printf("\n");
+    }
+    closedir(D);
+    printf("\n");
     }
 
     return 0;
 }
 
-// <summary>
-// Вывод сведений об активных процессах.
-// </summary>
 SHCMD(ps)
 {
+
     struct proc_t ps;
+
 	DIR *Dir = opendir(PROC_FS);
+
 	char time[256];
 
 	printf("UID\t  PID  PPID  C\tSTIME\tTTY\tTIME\tCMD\n");
-
-	while (entry = readdir(Dir))
-    {
+	while (entry = readdir(Dir)) {
 		if(!isdigit(*entry->d_name))
 			continue;
-
 		ReadProcStat(&ps,entry->d_name);
 		printf("%s\t",getpwuid(ps.uid)->pw_name);
-
 		printf("%5d ",ps.pid);
 		printf("%5d ",ps.ppid);
-		printf("%2d\t",ps.nice);
+		printf("%2d\t",ps.nice);//?
 
 		strftime(time, sizeof(time), "%H:%M", localtime(&ps.ctime));
 		printf("%s\t",time);
@@ -392,207 +282,318 @@ SHCMD(ps)
     return 0;
 }
 
-// <summary>
-// Выход из интерпретатора.
-// </summary>
-SHCMD(exit)
+
+
+SHCMD (df)
 {
-	active = false;
-	return 0;
+
 }
 
-// <summary>
-// Выполнение команды.
-// </summary>
-// <param name="cmd">Команда с параметрами.</param>
-void Execute(char *cmd)
+SHCMD(cp)
 {
-    // Параметры команды, разделенные пробелами.
-	char *params[PARAMS_LENGTH];
+    int np = 0;
+    while (params[np]!=NULL)
+        np++;
+
+    if (np<3)
+    {
+        printf("Too few arguments!\n");
+        return 0;
+    }
+
+    CopyFile (params[1], params[2]);
+    return 0;
+}
+
+SHCMD (head)
+{
+    int userKey = 0;
+
+    int np = 0;
+    while (params[np]!=NULL)
+        np++;
+
+    if (np<2)
+    {
+        printf("Too few arguments! \n");
+    }
+
+    int c;
+    int intArg;
+
+    while ((c = getopt(np, params, "n:c:"))!=-1) {
+        intArg = atoi(optarg);
+
+        switch (c) {
+
+        case 'n':
+            userKey = 1;
+            break;
+        case 'c':
+            userKey = 2;
+            break;
+        default:
+            printf ("Error!\n", c);
+        }
+    }
+
+    if (userKey==0)
+    {
+        userKey = 1;
+        intArg = 10;
+    }
+
+    if (optind < np) {
+        while (optind < np)
+        {
+            char* fileName = params[optind++];
+
+            FILE* file = fopen(fileName, "r");
+
+
+            if (!file)
+            {
+                printf("Can't open file!\n");
+                return 0;
+            }
+
+
+            if (userKey == 1)
+            {
+                char str [LINELENGHT];
+
+                int i=0;
+                while(fgets(str,sizeof(str),file) && i++ < intArg)
+                    printf ("%s", str);
+
+                fclose (file);
+
+                return 0;
+            }
+
+            if (userKey == 2)
+            {
+
+                int i;
+                for (i = 0; i<intArg; i++)
+                {
+                    int symbol = getc (file);
+                    if (symbol != EOF)
+                        printf("%c", symbol);
+                    else
+                        break;
+                }
+
+                return 0;
+            }
+        }
+
+
+    }
+
+    return 0;
+}
+
+// выполнение команды с параметрами
+void MyExec(char *cmd)
+{
+	char *params[256];  //параметры команды, разделенные пробелами
 	char *token;
 	int np;
 
-	token = strtok(cmd, " ");
+	token = strtok(cmd, " "); //Разделение на подстроки
 	np = 0;
-	while (token && np < PARAMS_LENGTH - 1)
+	while( token && np < 255 )
 	{
 		params[np++] = token;
 		token = strtok(NULL, " ");
 	}
 	params[np] = NULL;
 
-	// Выполнение встроенных команд.
-    if (IS_CMD(echo))
-    {
-        SHCMD_EXEC(echo);
-    }
-    else if (IS_CMD(cd))
-    {
-        SHCMD_EXEC(cd);
-    }
-	else if (IS_CMD(pwd))
-    {
-        SHCMD_EXEC(pwd);
-    }
-	else if (IS_CMD(du))
-    {
-        SHCMD_EXEC(du);
-    }
-    else if (IS_CMD(ls))
-    {
-        SHCMD_EXEC(ls);
-    }
-     else if (IS_CMD(ps))
-    {
-        SHCMD_EXEC(ps);
-    }
-	else if (IS_CMD(exit))
-    {
-        SHCMD_EXEC(exit);
-    }
+	// выполнение встроенных команд
+	if( IS_CMD(pwd) )
+		SHCMD_EXEC(pwd);
+	else
+	if( IS_CMD(exit) )
+		SHCMD_EXEC(exit);
+    else
+    if( IS_CMD(cd) )
+		SHCMD_EXEC(cd);
+    else
+    if( IS_CMD(ls) )
+		SHCMD_EXEC(ls);
+    else
+    if( IS_CMD(df) )
+		SHCMD_EXEC(df);
+    else
+    if( IS_CMD(head) )
+		SHCMD_EXEC(head);
+    else
+    if( IS_CMD(ps) )
+		SHCMD_EXEC(ps);
+    else
+    if( IS_CMD(cp) )
+		SHCMD_EXEC(cp);
     else
 	{
-	    // Вызов внешних команд.
+	// иначе вызов внешней команды
 		execvp(params[0], params);
-
-		// Ошибка запуска.
-		perror("exec");
+		perror("exec"); // если возникла ошибка при запуске
 	}
 }
-
-// <summary>
-// Конвейер.
-// </summary>
-// <param name="cmds">Команды.</param>
-// <param name="count">Количество команд.</param>
-// <param name="current">Обрабатываемая в настоящий момент команда.</param>
-int ExecutePipeline(char *cmds[], int count, int current)
+// рекурсивная функция обработки конвейера
+// параметры: строка команды, количество команд в конвейере, текущая (начинается с 0 )
+int ExecConv(char *cmds[], int n, int curr)
 {
-	int fd[2];
-
-	if (pipe(fd) < 0)
+	int fd[2],i;
+	if( pipe(fd) < 0 )
 	{
-		printf("Cannot create a pipe\n");
+		printf("Cannot create pipe\n");
 		return 1;
 	}
 
-    // Команды с первой по (count - 2).
-	if (count > 1 && current < count - 2)
-	{
-	    // Исполнение команды.
-		if (fork() == 0)
+	if( n > 1 && curr < n - 2 )
+	{ // first n-2 cmds
+		if( fork() == 0 )
 		{
 			dup2(fd[1], 1);
-
 			close(fd[0]);
 			close(fd[1]);
-
-			Execute(cmds[current]);
-
+			MyExec(cmds[curr]);
 			exit(0);
 		}
-
-        // Рекурсивный вызов конвейера.
-		if(fork() == 0)
+		if( fork() == 0 )
 		{
 			dup2(fd[0], 0);
-
 			close(fd[0]);
 			close(fd[1]);
-
-			ExecutePipeline(cmds, count, ++current);
-
+			ExecConv(cmds,n,++curr);
 			exit(0);
 		}
 	}
-	// Последние две команды или первая команда, если она является единственной.
 	else
-	{
-	    // Для команды exit без вызова fork.
-		if (count == 1 && (!strcmp(cmds[0],"exit") || !strncmp(cmds[0],"cd", 2)))
-		{
+	{ // 2 last cmds or if only 1 cmd
+		if(n == 1 && (!strcmp(cmds[0],"exit") ||  !strncmp(cmds[0],"cd", 2)) )
+		{ // для случая команды exit обходимся без fork, иначе не сможем завершиться
 			close(fd[0]);
 			close(fd[1]);
-
-			Execute(cmds[current]);
-
+			MyExec(cmds[curr]);
 			return 0;
 		}
-
-		if(fork() == 0)
+		if( fork() == 0 )
 		{
-			if (count > 1)
-            {
-                dup2(fd[1], 1);
-            }
-
+			if( n > 1 ) // if more then 1 cmd
+				dup2(fd[1], 1);
 			close(fd[0]);
 			close(fd[1]);
-
-			Execute(cmds[current]);
-
+			MyExec(cmds[curr]);
 			exit(0);
 		}
-
-		if(count > 1 && fork() == 0)
+		if( n > 1 && fork()==0 )
 		{
 			dup2(fd[0], 0);
-
 			close(fd[0]);
 			close(fd[1]);
-
-			Execute(cmds[current+1]);
-
+			MyExec(cmds[curr+1]);
 			exit(0);
 		}
 	}
-
 	close(fd[0]);
 	close(fd[1]);
 
-    // Ожидание завершения всех порожденных процессов.
-    int i;
-	for (i = 0 ; i < count; i++)
-    {
-        wait(0);
-    }
+	for( i = 0 ; i < n ; i ++ ) // ожидание завершения всех дочерних процессов
+		wait(0);
 
 	return 0;
 }
 
-void PreExecute(char* command)
+char* VariablesReplace (char* s)
+{
+    int positions [100][2];
+    bool isVariable = false;
+
+    int i, j;
+
+    int position = 0;
+    for (i = 0, j = 0; i<strlen(s); i++)
+    {
+        if ((s[i] == '$') || (s[i]==' ' && isVariable) || i == strlen(s)-1)
+        {
+            if (s[i] == '$') isVariable = true;
+            if (s[i]==' ' && isVariable) isVariable = false;
+
+            if (i - position > 0)
+            {
+                positions[j][0] = position;
+                positions[j++][1] = i  - position;
+            }
+
+            position = i;
+        }
+    }
+    int positionsSize = j;
+
+
+    char temp [1024];
+    memset (temp, 0, sizeof (temp));
+
+    char* result = "\0";
+
+    for (i = 0; i<positionsSize; i++)
+    {
+        strncpy (temp, s+positions[i][0], positions[i][1]);
+
+        if (temp[0]=='$')
+        {
+            char* variable = getenv (temp+1);
+            if (!variable)
+            {
+                printf("No such variable! %s\n", temp+1);
+                return 0;
+            }
+
+            strcpy (temp, variable);
+        }
+        char* tempResult = malloc(strlen(result) + strlen (temp) + 1);
+
+        strcpy (tempResult, result);
+        strcpy (tempResult + strlen(result), temp);
+
+        result = tempResult;
+
+        memset (temp, 0, sizeof (temp));
+    }
+
+    return result;
+}
+
+void Do (char* command)
 {
     char *p, *token;
     int cmd_cnt;
-    char *cmds[CMDS_LENGTH];
+    char *cmds[256];
 
-    if((p = strstr(command, "\n")) != NULL)
-    {
-        p[0] = 0;
-    }
+    if( (p = strstr(command,"\n")) != NULL ) p[0] = 0;
 
     token = strtok(command, "|");
-
-    int cmdcount;
-	for (cmdcount = 0; token && cmdcount < CMDS_LENGTH; cmdcount++)
-    {
-        cmds[cmdcount] = strdup(token);
-        token = strtok(NULL, "|");
-    }
-	cmds[cmdcount] = NULL;
-
-	if (cmdcount > 0)
+	for(cmd_cnt = 0; token && cmd_cnt < 256; cmd_cnt++ )
 	{
-		ExecutePipeline(cmds, cmdcount, 0);
+		cmds[cmd_cnt] = strdup(token);
+		token = strtok(NULL, "|");
+	}
+	cmds[cmd_cnt] = NULL;
+
+	if( cmd_cnt > 0 )
+	{
+		ExecConv(cmds,cmd_cnt,0);
 	}
 }
 
-// <summary>
-// Чтение строки и запуск конвейера.
-// </summary>
+// главная функция, цикл ввода строк (разбивка конвейера, запуск команды)
 int main(int argc, char** argv)
 {
-    if (argc > 1)
+
+    if (argc>1)
     {
         FILE* file = fopen(argv[1], "r");
         if (!file)
@@ -601,34 +602,34 @@ int main(int argc, char** argv)
             return 0;
         }
 
-        char str[CMDLINE_LENGTH];
+        char str [LINELENGHT];
 
-        while (fgets(str, sizeof(str), file))
+        while(fgets(str,sizeof(str),file))
         {
-            PreExecute(str);
+            Do (str);
         }
     }
     else
     {
-        while(active)
+        while( shellActive )
         {
+
             if (getenv("PS1"))
-            {
                 printf("%s", getenv("PS1"));
-            }
             else
-            {
                 printf("[%s]# ",getenv("PWD"));
-            }
 
             fflush(stdout);
 
-            char cmdline[CMDLINE_LENGTH];
-            fgets(cmdline,CMDLINE_LENGTH,stdin);
+            char cmdline[1024];
+            fgets(cmdline,1024,stdin);
 
-            PreExecute(cmdline);
+            char* varablesReplace = VariablesReplace(cmdline);
+
+            Do (varablesReplace);
         }
     }
 
 	return 0;
 }
+

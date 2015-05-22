@@ -13,6 +13,7 @@
 #include <grp.h>
 #include <time.h>
 #include <getopt.h>
+#include <ctype.h>
 
 #include <fcntl.h>
 #include <sys/sendfile.h>
@@ -147,7 +148,7 @@ void nl(char* filePath)
 		return;
 	}
 
-	char str [1024];
+	char str [LINELENGHT];
 	int i=1;
 	while(fgets(str,sizeof(str),file))
 		printf("%i\t%s",i++,str);
@@ -284,7 +285,7 @@ void grep(char* filePath, char* string)
 		return;
 	}
 
-	char str [1024];
+	char str [LINELENGHT];
 	while(fgets(str,sizeof(str),file))
 		if (strstr(str,string))
 			printf("%s",str);
@@ -627,6 +628,8 @@ void Do (char* command)
 // главная функция, цикл ввода строк (разбивка конвейера, запуск команды)
 int main(int argc, char** argv)
 {
+    chdir(getenv ("HOME"));
+    setenv ("PWD", getenv ("HOME"), 1);
 
     if (argc>1)
     {
@@ -656,8 +659,8 @@ int main(int argc, char** argv)
 
             fflush(stdout);
 
-            char cmdline[1024];
-            fgets(cmdline,1024,stdin);
+            char cmdline[LINELENGHT];
+            fgets(cmdline,LINELENGHT,stdin);
 
             Do (cmdline);
         }

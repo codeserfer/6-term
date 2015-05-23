@@ -1,4 +1,11 @@
-﻿#include <string.h>
+﻿// Лабораторная работа
+// по дисциплине «Программирование в среде UNIX»
+// Вариант №1
+
+// Шмелева Е.К.
+// ДКО_121б
+
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -13,12 +20,12 @@
 #include <grp.h>
 #include <time.h>
 #include <getopt.h>
+#include <regex.h>
 
 #define PROC_FS "/proc"
 #define CMDLINE_LENGTH 1024
 #define CMDS_LENGTH 256
 #define PARAMS_LENGTH 256
-
 
 typedef struct proc_t
 {
@@ -57,7 +64,7 @@ typedef struct proc_t
 	int sigignore;
 	int sigcatch;
 	uint wchan;
-//additional
+
 	int uid;
 	time_t ctime;
 } proc_t;
@@ -112,9 +119,9 @@ int64_t RecursiveCount()
         struct stat stat2;
         stat (dir_entry_p->d_name, &stat2);
 
-        if(dir_entry_p->d_name[0]!='.')
+        if (dir_entry_p->d_name[0]!='.') //текущая/
         {
-            if(S_ISDIR(stat2.st_mode))
+            if (S_ISDIR(stat2.st_mode))
             {
                 chdir(dir_entry_p->d_name);
                 sum += RecursiveCount();
@@ -149,14 +156,15 @@ SHCMD (echo)
     }
 
     int c;
-    while ((c = getopt(np, params, "n"))!=-1) {
-        switch (c) {
-
-        case 'n':
-            nParam = true;
-            break;
-        default:
-            printf ("Error!\n", c);
+    while ((c = getopt(np, params, "n"))!= -1)
+	{
+        switch (c)
+		{
+			case 'n':
+				nParam = true;
+				break;
+			default:
+				printf ("Error!\n", c);
         }
     }
 
@@ -588,6 +596,46 @@ void PreExecute(char* command)
 }
 
 // <summary>
+// Обработка переменных окружения.
+// </summary>
+char* ReplaceVariables(char *str)
+{
+    char *env;
+    char buf[256];
+    regex_t preg;
+    regmatch_t pm;
+    char *newstr = strdup (str);
+    int len;
+
+    regcomp( &preg, "\\$\\w\\+\\b", REG_ICASE );
+
+
+
+    while ( regexec(&preg, str, 1, &pm, REG_NOTBOL) == 0 )
+    {
+        memset(buf, '\0', 256);
+        strncpy(buf,&str[pm.rm_so]+1,(pm.rm_eo-pm.rm_so-1 < 256)?pm.rm_eo-pm.rm_so-1:254);
+        env = getenv(buf);
+
+        if (!env)
+        {
+            printf("Variable didn't found!");
+            return NULL;
+        }
+        len = strlen(str)-strlen(buf)+strlen(env);
+        newstr=malloc(len);
+        memset(newstr, '\0', len);
+        strncpy(newstr,str,pm.rm_so);
+        strncat(newstr,env,strlen(env));
+        strncat(newstr,&str[pm.rm_eo],strlen(str)-pm.rm_eo);
+        str = newstr;
+    }
+    regfree(&preg);
+
+    return newstr;
+}
+
+// <summary>
 // Чтение строки и запуск конвейера.
 // </summary>
 int main(int argc, char** argv)
@@ -605,7 +653,7 @@ int main(int argc, char** argv)
 
         while (fgets(str, sizeof(str), file))
         {
-            PreExecute(str);
+            PreExecute(ReplaceVariables(str));
         }
     }
     else
@@ -626,9 +674,11 @@ int main(int argc, char** argv)
             char cmdline[CMDLINE_LENGTH];
             fgets(cmdline,CMDLINE_LENGTH,stdin);
 
-            PreExecute(cmdline);
+            PreExecute(ReplaceVariables(cmdline));
+            //PreExecute((cmdline));
         }
     }
 
 	return 0;
 }
+

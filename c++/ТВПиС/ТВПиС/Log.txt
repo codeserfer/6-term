@@ -1,0 +1,1435 @@
+SLZSymbolComment	i	error
+MLZSymbolComment	i	error
+zeroSymbolString	i	error
+zeroSymbolChar	i	error
+isReservedType	int	reservedType
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	=	error
+SLZSymbolComment	=	error
+MLZSymbolComment	=	error
+zeroSymbolString	=	error
+zeroSymbolChar	=	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	=	error
+isbracket	=	error
+isIncOrDec	=	error
+isCompOper	=	isAsCompOp
+isAsCompOp	 	error0
+isArOp	=	error
+isStar	=	error
+isLogicOper	=	error
+isBiteOp	=	error
+isAssignment	=	Assignment
+Assignment	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	r	error
+SLZSymbolComment	r	error
+MLZSymbolComment	r	error
+zeroSymbolString	r	error
+zeroSymbolChar	r	error
+isReservedType	rand	error
+isCondition	rand	error
+isReservedWord	rand	error
+isSysFunc	rand	sysFunc
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	1	error
+SLZSymbolComment	1	error
+MLZSymbolComment	1	error
+zeroSymbolString	1	error
+zeroSymbolChar	1	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	1	digit
+digit	0	digit
+digit	0	digit
+digit	0	digit
+digit	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	o	error
+SLZSymbolComment	o	error
+MLZSymbolComment	o	error
+zeroSymbolString	o	error
+zeroSymbolChar	o	error
+isReservedType	output	error
+isCondition	output	error
+isReservedWord	output	error
+isSysFunc	output	sysFunc
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	=	error
+SLZSymbolComment	=	error
+MLZSymbolComment	=	error
+zeroSymbolString	=	error
+zeroSymbolChar	=	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	=	error
+isbracket	=	error
+isIncOrDec	=	error
+isCompOper	=	isAsCompOp
+isAsCompOp	 	error0
+isArOp	=	error
+isStar	=	error
+isLogicOper	=	error
+isBiteOp	=	error
+isAssignment	=	Assignment
+Assignment	 	error
+SLZSymbolComment	 	error
+MLZSymbolComment	 	error
+zeroSymbolString	 	error
+zeroSymbolChar	 	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	 	error
+isbracket	 	error
+isIncOrDec	 	error
+isCompOper	 	error
+isArOp	 	error
+isStar	 	error
+isLogicOper	 	error
+isBiteOp	 	error
+isAssignment	 	error
+isSeparator	 	error
+isUserType	 	error
+isSpace	 	space
+space	r	error
+SLZSymbolComment	r	error
+MLZSymbolComment	r	error
+zeroSymbolString	r	error
+zeroSymbolChar	r	error
+isReservedType	rand	error
+isCondition	rand	error
+isReservedWord	rand	error
+isSysFunc	rand	sysFunc
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	1	error
+SLZSymbolComment	1	error
+MLZSymbolComment	1	error
+zeroSymbolString	1	error
+zeroSymbolChar	1	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	1	digit
+digit	0	digit
+digit	0	digit
+digit	0	digit
+digit	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	o	error
+SLZSymbolComment	o	error
+MLZSymbolComment	o	error
+zeroSymbolString	o	error
+zeroSymbolChar	o	error
+isReservedType	output	error
+isCondition	output	error
+isReservedWord	output	error
+isSysFunc	output	sysFunc
+SLZSymbolComment	(	error
+MLZSymbolComment	(	error
+zeroSymbolString	(	error
+zeroSymbolChar	(	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	(	error
+isbracket	(	bracket
+bracket	a	error
+SLZSymbolComment	a	error
+MLZSymbolComment	a	error
+zeroSymbolString	a	error
+zeroSymbolChar	a	error
+isReservedType	a	error
+isCondition	a	error
+isReservedWord	a	error
+isSysFunc	a	error
+zeroSymbolDigit	a	error
+isbracket	a	error
+isIncOrDec	a	error
+isCompOper	a	error
+isArOp	a	error
+isStar	a	error
+isLogicOper	a	error
+isBiteOp	a	error
+isAssignment	a	error
+isSeparator	a	error
+isUserType	a	UserType
+UserType	)	error
+SLZSymbolComment	)	error
+MLZSymbolComment	)	error
+zeroSymbolString	)	error
+zeroSymbolChar	)	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	)	error
+isbracket	)	bracket
+bracket	;	error
+SLZSymbolComment	;	error
+MLZSymbolComment	;	error
+zeroSymbolString	;	error
+zeroSymbolChar	;	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	;	error
+isbracket	;	error
+isIncOrDec	;	error
+isCompOper	;	error
+isArOp	;	error
+isStar	;	error
+isLogicOper	;	error
+isBiteOp	;	error
+isAssignment	;	error
+isSeparator	;	Separator
+Separator	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	/	error
+SLZSymbolComment	/	SLFSymbolComment
+SLFSymbolComment	/	SLComment
+SLComment	i	SLComment
+SLComment	n	SLComment
+SLComment	t	SLComment
+SLComment	 	SLComment
+SLComment	m	SLComment
+SLComment	 	SLComment
+SLComment	=	SLComment
+SLComment	 	SLComment
+SLComment	0	SLComment
+SLComment	;	SLComment
+SLComment	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	/	error
+SLZSymbolComment	/	SLFSymbolComment
+SLFSymbolComment	/	SLComment
+SLComment	m	SLComment
+SLComment	 	SLComment
+SLComment	=	SLComment
+SLComment	 	SLComment
+SLComment	m	SLComment
+SLComment	i	SLComment
+SLComment	n	SLComment
+SLComment	(	SLComment
+SLComment	5	SLComment
+SLComment	,	SLComment
+SLComment	 	SLComment
+SLComment	6	SLComment
+SLComment	)	SLComment
+SLComment	;	SLComment
+SLComment	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	/	error
+SLZSymbolComment	/	SLFSymbolComment
+SLFSymbolComment	/	SLComment
+SLComment	o	SLComment
+SLComment	u	SLComment
+SLComment	t	SLComment
+SLComment	p	SLComment
+SLComment	u	SLComment
+SLComment	t	SLComment
+SLComment	(	SLComment
+SLComment	m	SLComment
+SLComment	)	SLComment
+SLComment	;	SLComment
+SLComment	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine
+newLine	/	error
+SLZSymbolComment	/	SLFSymbolComment
+SLFSymbolComment	*	error0
+MLZSymbolComment	/	MLFSymbolComment
+MLFSymbolComment	*	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	m	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	5	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	m	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	z	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	6	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	z	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	y	multilineComment1
+multilineComment1	[	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	z	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	]	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	0	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	w	multilineComment1
+multilineComment1	h	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	l	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	<	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	s	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	z	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	{	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	y	multilineComment1
+multilineComment1	[	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	]	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	y	multilineComment1
+multilineComment1	[	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	]	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	}	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	0	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	w	multilineComment1
+multilineComment1	h	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	l	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	<	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	6	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	{	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	w	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	y	multilineComment1
+multilineComment1	[	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	]	multilineComment1
+multilineComment1	-	multilineComment1
+multilineComment1	-	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	6	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	w	multilineComment1
+multilineComment1	:	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	w	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	/	multilineComment1
+multilineComment1	/	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	-	multilineComment1
+multilineComment1	>	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	/	multilineComment1
+multilineComment1	/	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	y	multilineComment1
+multilineComment1	[	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	]	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	}	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	h	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	'	multilineComment1
+multilineComment1	f	multilineComment1
+multilineComment1	'	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	=	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	'	multilineComment1
+multilineComment1	g	multilineComment1
+multilineComment1	'	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	+	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	c	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	b	multilineComment1
+multilineComment1	l	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	E	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	b	multilineComment1
+multilineComment1	l	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	g	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	:	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	i	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	Y	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	h	multilineComment1
+multilineComment1	a	multilineComment1
+multilineComment1	v	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	n	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	r	multilineComment1
+multilineComment1	e	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	:	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	"	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	
+	multilineComment1
+multilineComment1	o	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	p	multilineComment1
+multilineComment1	u	multilineComment1
+multilineComment1	t	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	(	multilineComment1
+multilineComment1	d	multilineComment1
+multilineComment1	)	multilineComment1
+multilineComment1	;	multilineComment1
+multilineComment1	 	multilineComment1
+multilineComment1	*	multilineComment2
+multilineComment2	/	commentEnd
+commentEnd	
+	error
+SLZSymbolComment	
+	error
+MLZSymbolComment	
+	error
+zeroSymbolString	
+	error
+zeroSymbolChar	
+	error
+isReservedType		error
+isCondition		error
+isReservedWord		error
+isSysFunc		error
+zeroSymbolDigit	
+	error
+isbracket	
+	error
+isIncOrDec	
+	error
+isCompOper	
+	error
+isArOp	
+	error
+isStar	
+	error
+isLogicOper	
+	error
+isBiteOp	
+	error
+isAssignment	
+	error
+isSeparator	
+	error
+isUserType	
+	error
+isSpace	
+	error
+isNewLine	
+	newLine

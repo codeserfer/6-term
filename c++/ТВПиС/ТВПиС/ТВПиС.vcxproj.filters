@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\List">
+      <UniqueIdentifier>{79b57108-7581-4662-adf9-f5330e3c2d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\List">
+      <UniqueIdentifier>{912ec0aa-7b67-49f5-bc35-3937ca7a9d8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Heap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Segment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defaults.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deque.h">
+      <Filter>Header Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Header Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>Header Files\List</Filter>
+    </ClInclude>
+    <ClInclude Include="SortingMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Diction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Automat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWritter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryOperationList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnaryOperationList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ASTBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TValueKeeper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scope.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ТВПиС.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Heap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Segment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stack.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="Queue.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="Deque.cpp">
+      <Filter>Source Files\List</Filter>
+    </ClCompile>
+    <ClCompile Include="Hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Diction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Automat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWritter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryOperationList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnaryOperationList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TValueKeeper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

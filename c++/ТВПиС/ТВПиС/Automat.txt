@@ -1,0 +1,370 @@
+#Конфигурационный файл для настройки конечных автоматов
+#Автоматы рассполагаются согласно их приоритетам!
+#Начальное состояние автомата задается директивой start
+#
+#Длина одной строки - не более 1024 символов, длина названя состояния - не более 20 символов
+#Начальное состояние, символы и конечное состояние разделяются табуляцией
+#Символы можно перечислять через запятую
+#
+#Если очередной символ уже не соответствует данному автомату, автомат должен перейти в состояние error
+#Если автомат "думал", что какая-то последовательность символов ему соответствует,
+#но упс, он ошибся, то он должен перейти в состояние error0
+
+
+#Однострочный комментарий
+start	SLZSymbolComment
+SLZSymbolComment	/	SLFSymbolComment
+SLZSymbolComment	...	error
+
+SLFSymbolComment	/	SLComment
+SLFSymbolComment	...	error0
+
+SLComment	\n	error
+SLComment	...	SLComment
+
+
+#Многострочные Комментарии
+start	MLZSymbolComment
+MLZSymbolComment	/	MLFSymbolComment
+MLZSymbolComment	...	error
+
+MLFSymbolComment	*	multilineComment1
+MLFSymbolComment	...	error0
+
+
+multilineComment1	*	multilineComment2
+multilineComment1	...	multilineComment1
+
+multilineComment2	/	commentEnd
+multilineComment2	...	multilineComment1
+
+commentEnd	...	error
+
+#Строки
+start	zeroSymbolString
+zeroSymbolString	"	string
+zeroSymbolString	\	error
+zeroSymbolString	...	error
+
+string	"	stringEnd
+string	\	backSlashString
+#string	\n	stringerror
+string	...	string
+
+backSlashString	"	string
+backSlashString	\	string
+backSlashString	\n	stringerror
+backSlashString	...	string
+
+stringEnd	...	error
+
+#Символы
+start zeroSymbolChar
+zeroSymbolChar	'	char
+zeroSymbolChar	...	error
+
+char	'	error
+char	\	backslashChar
+char	...	char2
+
+char2	'	charEnd
+char2	...	charError
+
+backslashChar	...	char2
+
+charEnd	...	error
+
+
+#Стандартные типы данных
+start	isReservedType
+
+isReservedType	bool	reservedType
+isReservedType	double	reservedType
+isReservedType	float	reservedType
+isReservedType	int	reservedType
+isReservedType	void	reservedType
+isReservedType	char	reservedType
+isReservedType	...	error
+
+reservedType	...	error
+
+
+# Условные конструкции
+start	isCondition
+isCondition	if	condition
+isCondition	while	condition
+isCondition	else	condition
+isCondition	...	error
+
+condition	...	error
+
+
+
+#Ключевые слова
+start isReservedWord
+isReservedWord	break	reservedWord
+isReservedWord	case	reservedWord
+isReservedWord	const	reservedWord
+isReservedWord	continue	reservedWord
+isReservedWord	default	reservedWord
+isReservedWord	do	reservedWord
+isReservedWord	false	reservedWord
+isReservedWord	for	reservedWord
+isReservedWord	switch	reservedWord
+isReservedWord	true	reservedWord
+isReservedWord	...	error
+
+reservedWord	...	error
+
+#системные функции
+start	isSysFunc
+isSysFunc	abs	sysFunc
+isSysFunc	sqrt	sysFunc
+isSysFunc	pow	sysFunc
+isSysFunc	floor	sysFunc
+isSysFunc	exp	sysFunc
+isSysFunc	sin	sysFunc
+isSysFunc	cos	sysFunc
+isSysFunc	ceil	sysFunc
+isSysFunc	log	sysFunc
+isSysFunc	log10	sysFunc
+isSysFunc	input	sysFunc
+isSysFunc	output	sysFunc
+isSysFunc	min	sysFunc
+isSysFunc	max	sysFunc
+isSysFunc	rand	sysFunc
+isSysFunc	...	error
+
+sysFunc	...	error
+
+#Числа
+start	zeroSymbolDigit
+zeroSymbolDigit	0	zero
+zeroSymbolDigit	1,2,3,4,5,6,7	digit
+zeroSymbolDigit	8,9	digit
+zeroSymbolDigit	.	double
+zeroSymbolDigit	x	error
+zeroSymbolDigit	e	error
+zeroSymbolDigit	A,B,C,D,E,F	error
+zeroSymbolDigit	-	error
+zeroSymbolDigit	...	error
+
+zero	0	error
+zero	1,2,3,4,5,6,7	oct
+zero	8,9	error
+zero	.	digit
+zero	x	hex
+zero	e	exp
+zero	A,B,C,D,E,F	error
+zero	-	error
+zero	...	error
+
+digit	0	digit
+digit	1,2,3,4,5,6,7	digit
+digit	8,9	digit
+digit	.	double
+digit	x	error
+digit	e	exp
+digit	A,B,C,D,E,F	error
+digit	-	error
+digit	...	error
+
+double	0	double
+double	1,2,3,4,5,6,7	double
+double	8,9	double
+double	.	error
+double	x	error
+double	e	exp
+double	A,B,C,D,E,F	error
+double	-	error
+double	...	error
+
+oct	0	oct
+oct	1,2,3,4,5,6,7	oct
+oct	8,9	error
+oct	.	error
+oct	x	error
+oct	e	error
+oct	A,B,C,D,E,F	error
+oct	-	error
+oct	...	error
+
+hex	0	hex
+hex	1,2,3,4,5,6,7	hex
+hex	8,9	hex
+hex	.	error
+hex	x	error
+hex	e	error
+hex	A,B,C,D,E,F	hex
+hex	-	error
+hex	...	error
+
+exp	0	exp
+exp	1,2,3,4,5,6,7	exp
+exp	8,9	exp
+exp	.	error
+exp	x	error
+exp	e	error
+exp	A,B,C,D,E,F	error
+exp	-	expMinus
+exp	...	error
+
+expMinus	0	exp
+expMinus	1,2,3,4,5,6,7	exp
+expMinus	8,9	exp
+expMinus	.	error
+expMinus	x	error
+expMinus	e	error
+expMinus	A,B,C,D,E,F	error
+expMinus	-	error
+expMinus	...	error
+
+
+#Скобки
+start	isbracket
+isbracket	(,),[,],{,}	bracket
+isbracket	...	error
+
+bracket	...	error
+
+#Инкремент и декремент
+start	isIncOrDec
+
+isIncOrDec	+	increment
+isIncOrDec	-	decrement
+isIncOrDec	...	error
+
+increment	+	increment2
+increment	...	error0
+
+decrement	-	decrement2
+decrement	...	error0
+
+increment2	...	error
+decrement2	...	error
+
+#Операторы сравнения
+start	isCompOper
+
+isCompOper	=	isAsCompOp
+isCompOper	!	isNasCompOp
+isCompOper	<	isLeCompOp
+isCompOper	>	isGeComOp
+isCompOper	...	error
+
+isAsCompOp	=	asCompOp
+isAsCompOp	...	error0
+
+asCompOp	...	error
+
+isNasCompOp	=	nasCompOp
+isNasCompOp	...	error0
+
+nasCompOp	...	error
+
+isLeCompOp	=	leCompOp
+isLeCompOp	...	error
+
+leCompOp	...	error
+
+
+isGeComOp	=	geComOp
+isGeComOp	...	error
+
+geComOp	...	error
+
+
+#Арифметические операции
+start	isArOp
+isArOp	+,-,*,/,%	arOp
+isArOp	...	error
+
+arOp	...	error
+
+
+
+#Звездочки
+start	isStar
+isStar	*	star
+isStar	...	error
+
+star	*	star
+star	...	error
+
+#Логические операторы
+start	isLogicOper
+#isLogicOper	!,&&,||	LogicOper
+
+isLogicOper	!	isInversion
+isLogicOper	&	isConjuction
+isLogicOper	|	isDisjunction
+isLogicOper	...	error
+
+isInversion	...	error
+
+isConjuction	&	conjuction
+isConjuction	...	error0
+
+isDisjunction	|	disjunction
+isDisjunction	...	error0
+
+conjuction	...	error
+
+disjunction	...	error
+
+
+#Битовые операторы
+start	isBiteOp
+isBiteOp	&,|,^,>>,<<	BiteOp
+isBiteOp	...	error
+
+BiteOp	...	error
+
+#Операция присваивания
+start	isAssignment
+isAssignment	=	Assignment
+isAssignment	...	error
+Assignment	...	error
+
+#разделители
+start	isSeparator
+isSeparator	,	Separator
+isSeparator	;	Separator
+isSeparator	...	error
+
+Separator	...	error
+
+#Пользовательские названия переменных и функций
+start	isUserType
+isUserType	A,B,C,D,E,F,G,H,I	UserType
+isUserType	J,K,L,M,N,O,P,Q,R	UserType
+isUserType	S,T,U,V,W,X,Y,Z	UserType
+isUserType	a,b,c,d,e,f,g,h,i	UserType
+isUserType	j,k,l,m,n,o,p,q,r	UserType
+isUserType	s,t,u,v,w,x,y,z	UserType
+isUserType	_	UserType
+isUserType	...	error
+
+UserType	A,B,C,D,E,F,G,H,I	UserType
+UserType	J,K,L,M,N,O,P,Q,R	UserType
+UserType	S,T,U,V,W,X,Y,Z	UserType
+UserType	a,b,c,d,e,f,g,h,i	UserType
+UserType	j,k,l,m,n,o,p,q,r	UserType
+UserType	s,t,u,v,w,x,y,z	UserType
+UserType	1,2,3,4,5,6,7,8,9,0	UserType
+UserType	_	UserType
+UserType	...	error
+
+#пробел
+start	isSpace
+isSpace	 	space
+isSpace	...	error
+
+space	...	error
+
+#Перенос строки
+start	isNewLine
+isNewLine	\n	newLine
+isNewLine	...	error
+
+newLine	...	error

@@ -1,5 +1,0 @@
-enum SortingMethod
-{
-	BubbleSort,
-	QuickSort
-};
